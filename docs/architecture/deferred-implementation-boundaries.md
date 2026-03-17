@@ -29,7 +29,7 @@ The following are already defined and should be implemented consistently:
 - Editorial Assignments are created only from approved Topics
 - Channel editors own their Assignments
 - Editors Desk routes assignment-relevant analytical subsets to channel editors
-- Channel editors work through the relevant Domain Desk for interpretation, clarification, and research support
+- Channel editors work through the relevant Analytical Desk for interpretation, clarification, and research support
 
 ## Implementation Guardrail
 

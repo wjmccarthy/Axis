@@ -16,11 +16,12 @@ The goal is to:
 
 ## Roadmap Rules
 
-- Build from runtime and signal infrastructure toward interpretation, then editorial, then publication.
+- Build from runtime and signal infrastructure toward expert interpretation, desk synthesis, editorial, then publication.
 - Each MVP must prove a real operating behavior, not just scaffolding or file creation.
-- Do not pull editorial workflow forward before the watcher surface and domain interpretation are proven.
+- Do not pull producer workflow forward before expert routing and analytical-desk synthesis are proven.
 - Do not pull channel-specific behavior forward before Editors Desk topic generation is proven.
 - Architecture guidance under [`docs/architecture/`](/Users/wjm/Code/Axis/docs/architecture) is subordinate to the spec and exists to reduce implementation drift.
+- Current first-pass desk and expert implementation shape lives in [`docs/implementation/`](/Users/wjm/Code/Axis/docs/implementation/), not in this roadmap.
 
 ## MVP 1: Runtime Spine
 
@@ -37,12 +38,13 @@ Get Axis alive inside the OpenClaw runtime with a working communications surface
 
 - signal collection
 - watcher subagents
-- domain interpretation
+- expert interpretation
+- analytical-desk behavior
 - editorial behavior
 
 ### Why This Stage Exists
 
-Axis must first exist as a working runtime system before any watcher, desk, or editorial behavior matters.
+Axis must first exist as a working runtime system before any watcher, expert, desk, or editorial behavior matters.
 
 ### Prerequisites
 
@@ -70,18 +72,19 @@ Prove that Axis can generate both external and strategist-generated signals.
 
 ### Includes
 
-- Report Watch generating canonical Signals
-- Strategist running and generating Viewpoint Signals
+- Report Watch generating canonical `Signals`
+- Strategist running and generating `Viewpoint Signals`
 
 ### Excludes
 
 - broad watcher surface
-- domain interpretation
+- expert state
+- analytical-desk synthesis
 - editorial behavior
 
 ### Why This Stage Exists
 
-Axis needs both incoming external signals and strategist-generated guidance before the rest of the system can become interpretive.
+Axis needs both incoming external signals and strategist-generated guidance before the interpretive system can become real.
 
 ### Prerequisites
 
@@ -99,30 +102,37 @@ Axis needs both incoming external signals and strategist-generated guidance befo
 
 ### Proof Of Viability
 
-- Report Watch emits canonical Signals
-- Strategist emits Viewpoint Signals
+- Report Watch emits canonical `Signals`
+- Strategist emits `Viewpoint Signals`
 
-## MVP 3: Domain Desks Listening
+## MVP 3: Expert Routing And Expert State
 
 ### Goal
 
-Prove that Domain Desks can receive and review routed signals.
+Prove that routed signals reach the right experts and that experts can maintain usable expert-local state.
 
 ### Includes
 
-- Domain Desks listening to routed signals
-- desk-local routed-signal records
-- reviewed-flag behavior at the destination desk
+- signal routing to experts
+- expert remit-driven consumption
+- `Expert Feed`
+- `Expert Watchlist`
+- `Expert Ideas`
+- `Expert Beliefs`
+- `Expert Calls`
+- `Expert Surface`
 
 ### Excludes
 
-- proven desk-thesis or desk-view formation
-- theme behavior
+- analytical-desk synthesis
+- desk current-state publication
 - editorial behavior
 
 ### Why This Stage Exists
 
-Before proving desk interpretation, Axis must prove that the desk layer is actually connected to the signal system.
+The new architecture depends on experts as the first-order consumers of signal flow. That layer has to be real before desk synthesis can be trusted.
+
+The current first-pass expert roster and remit shape are maintained in [`docs/implementation/desk-and-expert-roster.md`](/Users/wjm/Code/Axis/docs/implementation/desk-and-expert-roster.md).
 
 ### Prerequisites
 
@@ -130,41 +140,44 @@ Before proving desk interpretation, Axis must prove that the desk layer is actua
 
 ### New Implementation Notes To Read
 
-- [`docs/architecture/domain-desk-operating-guide.md`](/Users/wjm/Code/Axis/docs/architecture/domain-desk-operating-guide.md)
+- [`docs/architecture/analytical-desk-operating-guide.md`](/Users/wjm/Code/Axis/docs/architecture/analytical-desk-operating-guide.md)
+- [`docs/architecture/memory-model.md`](/Users/wjm/Code/Axis/docs/architecture/memory-model.md)
+- [`docs/implementation/desk-and-expert-roster.md`](/Users/wjm/Code/Axis/docs/implementation/desk-and-expert-roster.md)
 
 ### Proof Of Viability
 
-- routed signals reach the intended Domain Desks
-- desks can mark routed signals reviewed without architectural drift
+- routed signals reach the intended experts
+- experts maintain usable expert-local state
+- experts can surface active calls and selected ideas through `Expert Surface`
 
-## MVP 4: Domain and Theme Interpretation Proof
+## MVP 4: Analytical Desk Synthesis Loop
 
 ### Goal
 
-Prove that Domain Desks can form and maintain real domain and theme understanding from signals.
+Prove that Analytical Desks can synthesize expert input into current desk state and outward analytical output.
 
 ### Includes
 
-- Desk Thesis behavior
-- one current Beliefs file per desk, containing Desk Thesis, Desk Views, Theme Theses, and owned Theme Views
-- one current Signal Feed document per desk
-- one current Desk Scratchpad document per desk
-- Theme Thesis behavior
-- Theme View behavior
-- lead-desk ownership
-- collaborator-desk sharing of relevant views and notes
-- Desk Note production when warranted
-- Strategist receipt of desk analytical output
-- Strategist influence through Viewpoint Signals
+- desk composition from assigned experts
+- `Desk Feed`
+- `Desk Ideas`
+- `Desk Beliefs`
+- `Desk Debates`
+- `Current State Surface`
+- `Desk Note`
+- strategist participation in desk deliberation
+- desk question handling
 
 ### Excludes
 
 - Research Desk
-- editorial behavior
+- producer-desk topic generation
 
 ### Why This Stage Exists
 
-This is the first stage that proves Axis has real desk and theme intelligence rather than only collection and routing.
+This is the first stage that proves Axis has real desk-level intelligence rather than only collection and expert-local interpretation.
+
+The current first-pass analytical desk set, desk memberships, and desk explanation styles are maintained in [`docs/implementation/desk-and-expert-roster.md`](/Users/wjm/Code/Axis/docs/implementation/desk-and-expert-roster.md).
 
 ### Prerequisites
 
@@ -172,29 +185,26 @@ This is the first stage that proves Axis has real desk and theme intelligence ra
 
 ### New Implementation Notes To Read
 
-- [`docs/architecture/memory-model.md`](/Users/wjm/Code/Axis/docs/architecture/memory-model.md)
+- [`docs/implementation/desk-and-expert-roster.md`](/Users/wjm/Code/Axis/docs/implementation/desk-and-expert-roster.md)
 
 ### Proof Of Viability
 
-- desks maintain usable Beliefs
-- desks maintain usable Signal Feed and Desk Scratchpad working memory
-- desks can issue Desk Notes when warranted
-- desk output is coherent enough to be consumed by Strategist
-- lead desks maintain coherent theme output
-- collaborator desks can contribute without extra coordination machinery
-- Strategist can influence theme posture through Viewpoint Signals
+- analytical desks maintain usable desk state
+- desks publish coherent current-state surfaces
+- desks can issue desk notes when warranted
+- strategist can consume and influence desk output without recreating an obsolete analytical layer
 
 ## MVP 5: Research Support Loop
 
 ### Goal
 
-Prove that research support deepens the already-working signal and desk system.
+Prove that research support deepens the already-working expert and desk system.
 
 ### Includes
 
-- Research Request creation by Domain Desks
+- `Research Request` creation by Analytical Desks
 - Research Desk fulfillment
-- Research Brief delivery back to the requesting agent
+- `Research Brief` delivery back to the requesting desk
 
 ### Excludes
 
@@ -208,7 +218,6 @@ Research should deepen an already working intelligence system, not substitute fo
 ### Prerequisites
 
 - MVP 4
-- Research Desk operating guidance
 
 ### New Implementation Notes To Read
 
@@ -216,19 +225,19 @@ Research should deepen an already working intelligence system, not substitute fo
 
 ### Proof Of Viability
 
-- Domain Desks can open valid Research Requests
-- Research Desk can return usable Research Briefs
-- Research Briefs can be used by the requesting desk without changing the core desk/theme model
+- Analytical Desks can open valid `Research Requests`
+- Research Desk can return usable `Research Briefs`
+- desks can use those briefs without changing the core expert-plus-desk model
 
 ## MVP 6: Signal Retrieval Loop
 
 ### Goal
 
-Prove that Domain Desks can request bounded signal search from Signal Desk over retained signal history.
+Prove that Analytical Desks can request bounded signal search from Signal Desk over retained signal history.
 
 ### Includes
 
-- Signal Request creation by Domain Desks
+- `Signal Request` creation by Analytical Desks
 - Signal Desk fulfillment of bounded signal search
 - signal-dump or bounded search-result return to the requesting desk
 
@@ -240,7 +249,7 @@ Prove that Domain Desks can request bounded signal search from Signal Desk over 
 
 ### Why This Stage Exists
 
-Before editorial begins generating Topics from the upstream system, Domain Desks should be able to pull bounded signal history from Signal Desk without confusing signal retrieval with research work.
+Before producer desks begin generating topics from the upstream system, Analytical Desks should be able to pull bounded signal history without confusing signal retrieval with research work.
 
 ### Prerequisites
 
@@ -249,44 +258,42 @@ Before editorial begins generating Topics from the upstream system, Domain Desks
 ### New Implementation Notes To Read
 
 - [`docs/architecture/retrieval-policy.md`](/Users/wjm/Code/Axis/docs/architecture/retrieval-policy.md)
-- [`docs/architecture/linking-model.md`](/Users/wjm/Code/Axis/docs/architecture/linking-model.md)
 
 ### Proof Of Viability
 
-- Domain Desks can open valid Signal Requests
+- Analytical Desks can open valid `Signal Requests`
 - Signal Desk can return bounded signal-search results for a specified time range and filter criteria
-- desks can use those results without confusing them with Research Briefs
+- desks can use those results without confusing them with `Research Briefs`
 
 ## MVP 7: Editors Desk Topic Generation
 
 ### Goal
 
-Prove that Editors Desk can generate viable Topics from the upstream intelligence system.
+Prove that Editors Desk can generate viable `Topics` from the upstream intelligence system.
 
 ### Includes
 
 - Editors Desk running
-- one current Theme List document
-- one current Editors Feed document
-- one current Editors Scratchpad document
-- receipt of domain analytical output from Domain Desks
-- installation of designated trend-oriented watchers needed to emit the canonical Signals used for Topic generation
-- Topic generation and Topic management
+- one current `Editorial Agenda`
+- one current `Editors Feed`
+- one current `Editors Scratchpad`
+- inspection of analytical-desk current-state surfaces
+- subscription to desk notes
+- direct desk questions
+- topic generation and topic management
 
 ### Excludes
 
-- broad optional watcher expansion
 - channel-specific publication execution
 - broad channel scheduling complexity
 
 ### Why This Stage Exists
 
-Editors Desk should appear only after Report Watch, desk interpretation, theme behavior, and research support are real. Trend-oriented watchers that emit the needed canonical Signals should be added here, right before Editors Desk needs them. Broader watcher expansion remains optional and should not block the first full system loop.
+Editors Desk should appear only after signal production, expert interpretation, desk synthesis, and support loops are already real.
 
 ### Prerequisites
 
 - MVP 6
-- editorial-consumption guidance
 
 ### New Implementation Notes To Read
 
@@ -294,9 +301,9 @@ Editors Desk should appear only after Report Watch, desk interpretation, theme b
 
 ### Proof Of Viability
 
-- Editors Desk can generate viable Topics from domain analytical output and designated trend inputs
-- Editors Desk maintains usable Theme List, Editors Feed, and Editors Scratchpad working memory
-- Topics reflect both Axis domain understanding and audience-relevant trends
+- Editors Desk can generate viable `Topics` from analytical-desk output
+- Editors Desk maintains usable `Editorial Agenda`, `Editors Feed`, and `Editors Scratchpad`
+- topic generation reflects current analytical state rather than a direct raw-signal firehose
 
 ## MVP 8: Single-Channel Publication Loop
 
@@ -307,9 +314,9 @@ Prove the first full Topic-to-publication loop through one channel editor.
 ### Includes
 
 - one channel editor
-- approved Topic to Editorial Assignment flow
-- Draft creation
-- Publication Item creation
+- approved `Topic` to `Editorial Assignment` flow
+- draft creation
+- `Publication Item` creation
 
 ### Excludes
 
@@ -318,12 +325,11 @@ Prove the first full Topic-to-publication loop through one channel editor.
 
 ### Why This Stage Exists
 
-Publication should be proven only after upstream signal, desk, theme, research, and editorial topic generation are already working.
+Publication should be proven only after upstream signal, expert, desk, research, and editorial topic generation are already working.
 
 ### Prerequisites
 
 - MVP 7
-- publication and attribution guidance
 
 ### New Implementation Notes To Read
 
@@ -332,20 +338,20 @@ Publication should be proven only after upstream signal, desk, theme, research, 
 
 ### Proof Of Viability
 
-- one channel editor can execute an approved Topic into a Draft and Publication Item
+- one channel editor can execute an approved `Topic` into a draft and `Publication Item`
 - the publication loop uses routed analytical inputs rather than bypassing the upstream system
 
 ## MVP 9: Optional Watcher Expansion
 
 ### Goal
 
-Add watcher breadth beyond Report Watch and the designated trend watchers needed for Editors Desk.
+Add watcher breadth beyond Report Watch.
 
 ### Includes
 
 - additional watcher subagents beyond Report Watch
 - broader heterogeneous collection behavior under Signal Desk
-- canonical Signal normalization across additional watcher types
+- canonical `Signal` normalization across additional watcher types
 
 ### Excludes
 
@@ -353,12 +359,11 @@ Add watcher breadth beyond Report Watch and the designated trend watchers needed
 
 ### Why This Stage Exists
 
-The first full Axis loop can run on Report Watch plus the designated trend watchers needed for Editors Desk. Broader watcher expansion is valuable, but optional until the core system loop is proven.
+The first full Axis loop can run on Report Watch alone. Broader watcher expansion is valuable, but optional until the core system loop is proven.
 
 ### Prerequisites
 
 - MVP 8
-- Signal Desk operating guidance
 
 ### New Implementation Notes To Read
 
@@ -366,7 +371,7 @@ The first full Axis loop can run on Report Watch plus the designated trend watch
 
 ### Proof Of Viability
 
-- additional watcher types emit canonical Signals
+- additional watcher types emit canonical `Signals`
 - Signal Desk coordinates them without downstream contract drift
 
 ## MVP 10: System Expansion
@@ -378,8 +383,9 @@ Expand from the first proven publication loop to the full intended system.
 ### Includes
 
 - more watcher depth
-- more desks
-- more themes
+- more experts
+- more analytical desks
+- more producer surfaces
 - more channel editors
 - broader operational complexity once the core model is proven
 

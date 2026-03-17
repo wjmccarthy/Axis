@@ -7,124 +7,114 @@ This document defines the major Axis-owned state and artifact classes that imple
 It governs:
 - what the major Axis records are
 - what category each record belongs to
-- which records are mutable state versus durable artifacts
+- which records are mutable state versus persisted publication versus durable artifact
 - what the canonical storage posture is for each class
 
 It does not govern:
 - OpenClaw runtime memory behavior
 - Gateway behavior
 - plugin lifecycle behavior
-- hook lifecycle behavior
 
 Those remain governed by official OpenClaw documentation.
 
 ## Categories
 
-Axis records fall into three main categories:
+Axis records fall into four main categories.
 
 ### 1. Mutable State
 
-These represent the system's current evolving synthesized understanding.
+These represent current evolving internal state.
 
-- Beliefs
-- current Signal Feed
-- current Desk Scratchpad
-- current Theme List
-- current Editors Feed
-- current Editors Scratchpad
-- current Strategist Feed History
-- current Strategist Scratchpad
+- `Expert Feed`
+- `Expert Watchlist`
+- `Expert Ideas`
+- `Expert Beliefs`
+- `Expert Calls`
+- `Desk Feed`
+- `Desk Ideas`
+- `Desk Beliefs`
+- `Desk Debates`
+- `Editorial Agenda`
+- `Editors Feed`
+- `Editors Scratchpad`
+- `Strategist Feed History`
+- `Strategist Scratchpad`
 
-### 2. Durable Artifacts
+### 2. Persisted Publication Objects
 
-These represent observed inputs, analytical outputs, editorial outputs, and published outputs.
+These are outward-facing current or point-in-time publication surfaces.
 
-- Signal
-- Source Material
+- `Expert Surface`
+- `Current State Surface`
+- `Desk Note`
+
+### 3. Durable Artifacts
+
+These represent observed inputs, supporting material, analytical outputs, editorial outputs, and published outputs.
+
+- `Signal`
+- `Source Material`
 - report artifact
 - report parse
-- Chart Follow-Up
+- ingestion-stage artifact
+- `Chart Follow-Up`
 - transcript
-- Research Request
-- Signal Request
-- Research Brief
-- Desk Note
-- Topic
-- Editorial Assignment
+- `Research Brief`
 - draft
-- Publication Item
+- `Publication Item`
 
-### 3. Operational/Derived Records
+### 4. Workflow Records
 
-These support retrieval, compaction, or archival behavior but are not the primary truth objects themselves.
+These represent workflow state and lineage.
 
-- desk-local routed-signal record
-- daily signal rollup
-- weekly signal rollup
-- retrieval index entry
-- link record
+- `Research Request`
+- `Signal Request`
+- `Topic`
+- `Editorial Assignment`
 
 ## Canonical Storage Posture
 
-### Beliefs
+### Expert State
 
 - category: mutable state
-- canonical posture: Markdown file owned by the desk
-- update behavior: current persisted desk analytical state
-- contains: Desk Thesis, Desk Views, Theme Theses, and owned Theme Views
-- historical tracking: archived daily as part of the desk's state history
+- canonical posture: expert-owned working state plus metadata
+- includes: feed, watchlist, ideas, beliefs, calls
 
-### Signal Feed
+### Expert Surface
 
-- category: mutable desk-local working state
-- canonical posture: desk-owned working document
-- update behavior: rolling last `N` relevant routed signals for the desk
-- purpose: recent signal-flow and short-horizon temporal memory distinct from Beliefs
+- category: persisted publication object
+- canonical posture: persisted publication record plus metadata
+- update behavior: current exposed expert state built from selected expert memory
 
-### Desk Scratchpad
+### Desk State
 
-- category: mutable desk-local working state
-- canonical posture: desk-owned working document
-- update behavior: evolving notebook for developing views, recurrence, and unresolved signal pressure
-- historical tracking: archived over time
+- category: mutable state
+- canonical posture: desk-owned working state plus metadata
+- includes: feed, ideas, beliefs, debates
 
-### Theme List
+### Current State Surface
 
-- category: mutable editorial working state
-- canonical posture: Editors-Desk-owned Markdown file
-- update behavior: current thematic framing, topic-development context, and sequencing context
+- category: persisted publication object
+- canonical posture: persisted publication record plus metadata
+- update behavior: current exposed desk state built from desk beliefs and selected desk ideas
 
-### Editors Feed
+### Editorial Working State
 
-- category: mutable editorial working state
-- canonical posture: Editors-Desk-owned working document
-- update behavior: rolling last `N` feed items most relevant to Topic generation and sequencing
+- category: mutable state
+- canonical posture: Editors-Desk working documents plus metadata
+- includes: `Editorial Agenda`, `Editors Feed`, `Editors Scratchpad`
 
-### Editors Scratchpad
+### Strategist Working State
 
-- category: mutable editorial working state
-- canonical posture: Editors-Desk-owned working document
-- update behavior: evolving notebook for topic ideas, theme/trend pairings, and sequencing thoughts
-- historical tracking: archived over time
-
-### Strategist Feed History
-
-- category: mutable strategist working state
-- canonical posture: Strategist-owned working document
-- update behavior: rolling recent feed history most relevant to synthesis, prioritization, and override decisions
-
-### Strategist Scratchpad
-
-- category: mutable strategist working state
-- canonical posture: Strategist-owned working document
-- update behavior: evolving notebook for cross-domain synthesis, unresolved tensions, and pre-signal or pre-decision reasoning
-- historical tracking: archived over time
+- category: mutable state
+- canonical posture: strategist working documents plus metadata
+- includes: `Strategist Feed History`, `Strategist Scratchpad`
 
 ### Signal
 
 - category: durable artifact
-- canonical posture: SQLite metadata with file/JSON payload when needed
-- mutation behavior: append-only
+- canonical posture: SQLite metadata with file or payload when needed
+- mutation behavior: append-only or versioned where the source requires it
 
 ### Source Material
 
@@ -132,61 +122,16 @@ These support retrieval, compaction, or archival behavior but are not the primar
 - canonical posture: file or structured payload plus SQLite metadata
 - mutation behavior: immutable or versioned depending on source
 
-Source Material is the implementation-level class for attributable supporting material such as:
-
-- quotes
-- visuals
-- charts
-- tables
-- excerpts
-- clips
-- other attributable source-derived material
-
-Source Material may sit behind Signals, Research Briefs, Desk Notes, Drafts, and Publication Items.
-
-Some Source Material, such as standing-watch charts or other routable observed material, may also be emitted or referenced through Signals when it is meant to enter the system's attention and routing flow.
-
-Source Material is not:
-
-- a replacement for the origin source artifact
-- automatically a Signal
-- automatically a publication asset
-
-When Source Material itself is meant to be noticed, routed, and consumed by the system, it should also be emitted or referenced through a canonical Signal rather than remaining buried only as support material.
-
-Source Material should normally preserve provenance back to an origin or retained source representation such as:
-
-- a report artifact
-- a report parse
-- a transcript
-- another retained source representation
-
-### Desk-Local Routed-Signal Record
-
-- category: operational/derived record
-- canonical posture: SQLite record
-- mutation behavior: persistent record with `reviewed` flag for each destination desk
-
-### Report Artifact
+### Ingestion-Stage Artifact
 
 - category: durable artifact
-- canonical posture: file plus SQLite metadata
-
-### Report Parse
-
-- category: durable artifact
-- canonical posture: file/JSON plus SQLite metadata
+- canonical posture: file or structured payload plus SQLite metadata
 
 ### Chart Follow-Up
 
 - category: durable artifact
-- canonical posture: Markdown/file plus SQLite metadata
-- mutation behavior: versioned artifact when materially revised
-
-### Transcript
-
-- category: durable artifact
-- canonical posture: file plus SQLite metadata
+- canonical posture: file or Markdown plus SQLite metadata
+- mutation behavior: versioned when materially revised
 
 ### Research Brief
 
@@ -194,30 +139,30 @@ Source Material should normally preserve provenance back to an origin or retaine
 - canonical posture: Markdown plus SQLite metadata
 - mutation behavior: versioned artifact
 
+### Desk Note
+
+- category: persisted publication object
+- canonical posture: Markdown plus SQLite metadata
+- mutation behavior: immutable once issued
+
 ### Research Request
 
-- category: durable workflow artifact
+- category: workflow record
 - canonical posture: SQLite record
 
 ### Signal Request
 
-- category: durable workflow artifact
+- category: workflow record
 - canonical posture: SQLite record
-
-### Desk Note
-
-- category: durable artifact
-- canonical posture: Markdown plus SQLite metadata
-- mutation behavior: immutable once issued
 
 ### Topic
 
-- category: durable workflow artifact
+- category: workflow record
 - canonical posture: SQLite record
 
 ### Editorial Assignment
 
-- category: durable workflow artifact
+- category: workflow record
 - canonical posture: SQLite record
 
 ### Draft
@@ -234,48 +179,21 @@ Source Material should normally preserve provenance back to an origin or retaine
 
 ## Grounding
 
-Desk theses and views may be grounded by supporting material in narrative or retained state where needed.
+Analytical and editorial outputs may be grounded by supporting material in retained artifacts where needed.
 
 Important:
-- Axis does not require dense structured linking for analytical relationships among theses, views, notes, and briefs
+- Axis does not require dense structured linking for every analytical relationship
 - structured links should be reserved mainly for provenance, attribution, workflow lineage, and revision lineage
-- the sparse-linking rules in [`linking-model.md`](/Users/wjm/Code/Axis/docs/architecture/linking-model.md) control how far this should go in practice
 
 ## Retrieval Posture
 
-Artifacts and state should not all be treated equally for retrieval.
+Not all records should be treated equally for retrieval.
 
-### Embed for semantic retrieval
-
-- Beliefs sections
+Prefer high-value retrieval over:
+- `Expert Surface`
+- `Current State Surface`
+- `Desk Note`
+- `Research Brief`
 - report parses
 - transcripts
-- Research Briefs
-- Desk Notes
-- milestone drafts
-- Publication Items
-
-### Do not embed by default
-
-- raw Signals
-- Topics
-- Editorial Assignments
-- purely structured metadata records
-
-## Current-State Retention Posture
-
-- Beliefs is the current-state container.
-- Signal Feed and Desk Scratchpad are desk-local working-memory surfaces.
-- Theme List is the current editorial working document.
-- Editors Feed and Editors Scratchpad are Editors-Desk working-memory surfaces.
-- Strategist Feed History and Strategist Scratchpad are strategist working-memory surfaces.
-- Desks may explicitly age out views by removing them from current Beliefs.
-- Historical tracking comes from archived daily Beliefs rather than from keeping every old view active in current state.
-
-## Open Questions
-
-These still need later implementation decisions:
-
-1. Exact fields for each record class
-2. Exact stable ID format
-3. Exact hot/warm/cold thresholds by class
+- retained signals where signal-side retrieval is the real need

@@ -1,4 +1,4 @@
-# Themes
+# Themes [Archive]
 
 This file archives the pre-redesign theme catalog that previously lived in [`SPECIFICATION.md`](/Users/wjm/Code/Axis/SPECIFICATION.md).
 

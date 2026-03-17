@@ -2,249 +2,147 @@
 
 ## Purpose
 
-This document defines how editorial components consume analytical output from Domain Desks.
+This document defines how producer-side editorial components consume analytical output from Analytical Desks.
 
 It governs:
-- which analytical surfaces editorial consumes
-- which surfaces are more authoritative versus faster
-- how editorial workflow uses analytical input without dense analytical linking
+- what editorial may inspect
+- what editorial may subscribe to
+- how editorial should treat current state versus notes
+- what working memory Editors Desk maintains
 
 It does not govern:
 - topic approval authority
 - assignment lifecycle authority
 - OpenClaw runtime behavior
 
-Those remain governed by [/Users/wjm/Code/Axis/SPECIFICATION.md](/Users/wjm/Code/Axis/SPECIFICATION.md) and official OpenClaw documentation.
+Those remain governed by [/Users/wjm/Code/Axis/SPECIFICATION.md](/Users/wjm/Code/Axis/SPECIFICATION.md).
 
 ## Canonical Rule
 
-The editorial layer may consume all of the following from Domain Desks:
+Editorial consumes analytical output, not the raw signal firehose.
 
-- Desk Thesis
-- Desk View
-- Theme Thesis
-- Theme View
-- Desk Note
-- Research Brief
+The primary editorial-facing inputs are:
+- `Current State Surface`
+- `Desk Note`
+- direct desk answers to questions
+- `Research Brief` where deeper support is needed
 
-Editorial does not consume raw signals as its primary analytical surface.
+Editorial does not depend on:
+- raw signals as its main interpretive input
+- desk-internal debates
+- expert-internal memory surfaces as the normal producer-facing interface
 
-Important distribution distinction:
-- Strategist receives current desk and theme analytical output across the system.
-- Domain Desks send the analytical surfaces below to Editors Desk by default.
-- Signal Desk may also route designated trend-oriented canonical Signals directly to Editors Desk for Topic generation and sequencing.
-- Editors Desk uses that full editorial-facing analytical surface for Topic generation and sequencing.
-- Channel editors receive the subset relevant to their current Assignments, routed through Editors Desk.
-- Editors Desk maintains its own working memory distinct from Topics and Assignments.
+## Current State Vs Desk Note
 
-## Authority and Timing
+These surfaces are not the same.
 
-The analytical surfaces are not equal.
+`Current State Surface`:
+- is the standing current desk state
+- contains core position, beliefs, and selected ideas
+- is the main desk state interface editorial should inspect
 
-- Desk Views and Theme Views are the authoritative current analytical state.
-- Desk Theses and Theme Theses are the more durable conviction layer behind that current state.
-- Desk Notes are faster point-in-time expressions of judgment and may surface before the more authoritative views are updated in fast-moving situations.
-- Research Briefs are research products used when evidence, background, or deeper support is needed.
+`Desk Note`:
+- is a point-in-time published communication
+- may surface faster in fast-moving situations
+- does not replace standing current state permanently
 
-Important:
-- Desk Notes do not displace Desk Views or Theme Views as the standing analytical authority.
-- In fast-moving situations, a newer Desk Note may be the current tactical read until the authoritative view catches up.
+Editorial rule:
+- use `Current State Surface` as the standing analytical baseline
+- use `Desk Notes` as bounded pushed updates, alerts, or framing artifacts
+- in a fast-moving situation, a newer `Desk Note` may be the current tactical read until current state catches up
 
 ## Editors Desk
 
-Editors Desk maintains:
+Editors Desk may:
+- inspect the `Current State Surface` of Analytical Desks
+- subscribe to `Desk Notes`
+- ask direct questions of Analytical Desks
 
-- its current Theme List
-- its current Editors Feed
-- its current Editors Scratchpad
-
-Important:
-- Theme List is the Editors-Desk working document for current thematic framing and sequencing context
-- Editors Feed and Editors Scratchpad are Editors-Desk-local working memory, not workflow objects
-- Topics remain the canonical editorial workflow object
-
-### From Domain Desks
-
-Editors Desk receives by default:
-
-- Desk Thesis
-- Desk View
-- Theme Thesis
-- Theme View
-- Desk Note
-- relevant Research Brief
-
-### From Signal Desk
-
-Editors Desk may also receive designated trend-oriented canonical Signals from Signal Desk for Topic generation and sequencing.
-
-Editors Desk uses these to:
-
-- create and refine Topics
+Editors Desk uses these inputs to:
+- create and refine `Topics`
 - manage backlog, slate, sequencing, and reuse planning
 - maintain continuity across channels
-- pair what is trending with what Axis thinks
-- generate Topics that fit both the analytical realm and audience attention
-- improve sequencing and framing
+- request new bounded analytical output when needed through desk questions
 
-Editors Desk should not treat Desk Notes as the sole or default analytical substrate.
-Editors Desk should not treat designated trend-oriented canonical Signals as substitutes for domain analytical authority.
-
-Axis does not require:
-
-- channel editors to consume designated trend-oriented canonical Signals directly by default
-- designated trend-oriented canonical Signals to serve as final interpretation
-- every trend signal to become a Topic
-
-## Editors Desk Working Memory
-
-Editors Desk needs local working memory in addition to Topics and Assignments.
-
-The intended default shape is:
-
-- `Theme List`
-  - one current Editors-Desk document
-  - holds current thematic framing, development context, and sequencing context
-  - is distinct from Topics as workflow objects
-
+Editors Desk working memory includes:
+- `Editorial Agenda`
 - `Editors Feed`
-  - one current Editors-Desk document
-  - holds the last `N` feed items most relevant to Topic generation and sequencing
-  - may include domain analytical output and designated trend-oriented canonical Signals
-
 - `Editors Scratchpad`
-  - one current Editors-Desk document
-  - holds developing topic ideas, trend/theme pairings, sequencing thoughts, and pre-Topic working material
-  - should preserve archived history over time
 
-Important:
-- Theme List is the current editorial working document, not a workflow object
-- Editors Feed and Editors Scratchpad are working memory, not shared final workflow state
-- implementation should not force a rigid schema onto these working documents beyond these role boundaries
+Role of each:
+- `Editorial Agenda`
+  - current editorial framing and sequencing context
+- `Editors Feed`
+  - recent incoming editorially relevant analytical material
+- `Editors Scratchpad`
+  - working editorial development memory before material becomes Topic state
+
+These are working-memory surfaces, not workflow objects.
 
 ## Channel Editors
 
-Channel editors consume the subset relevant to their current Assignments from:
+Channel editors normally consume a routed subset of:
+- current-state surfaces
+- desk notes
+- relevant research briefs
 
-- Desk Thesis
-- Desk View
-- Theme Thesis
-- Theme View
-- Desk Note
-- relevant Research Brief
+That subset is routed through Editors Desk for active assignments.
 
-Channel editors use these to:
+Channel editors may work through the relevant Analytical Desk for:
+- interpretation
+- clarification
+- assignment support
+- escalation into research when needed
 
-- interpret the current analytical state
-- execute Editorial Assignments
-- request clarification through the relevant Domain Desk when needed
+Channel editors should not be treated as first-order consumers of the full internal analytical surface across the system.
 
-Channel editors should not treat Desk Notes as the only valid analytical input.
-Channel editors do not need blanket receipt of all desk output across the system.
-Editors Desk is the normal routing layer for what channel editors receive for a given Assignment.
+## Research Support
 
-## How Editorial Should Read the Surfaces
+When editorial needs deeper support:
+- the request goes to the relevant Analytical Desk
+- the desk decides whether existing knowledge is sufficient
+- if not, the desk opens a `Research Request`
 
-### Desk Thesis
+Research support remains desk-mediated.
 
-Use when editorial needs the desk's more durable domain conviction.
+Editorial does not open `Research Requests` directly.
 
-This is useful for:
-- continuity
-- structural framing
-- deciding whether a development fits an existing long-running domain belief
+## What Editorial Should Not Treat As Canonical
 
-### Desk View
+Editorial should not treat any of the following as the main analytical authority:
+- raw signals
+- desk-internal debates
+- expert feed/watchlist state
+- desk notes alone
 
-Use when editorial needs the desk's current domain interpretation.
-
-This is usually the most authoritative current desk-level analytical input.
-
-### Theme Thesis
-
-Use when editorial needs the durable conviction behind a theme.
-
-This is useful for:
-- continuity across time
-- strategic framing
-- connecting current developments back to the longer-running theme logic
-
-### Theme View
-
-Use when editorial needs the current interpretation of a theme.
-
-This is usually the most authoritative current theme-level analytical input.
-
-### Desk Note
-
-Use when editorial needs a fast explicit judgment artifact.
-
-This is especially useful in:
-- fast-moving situations
-- moments where a bounded point-in-time interpretation is needed quickly
-
-Desk Notes may be newer than the standing views, but they are generally less authoritative than current views once those views are updated.
-
-### Research Brief
-
-Use when editorial needs:
-- additional evidence
-- deeper factual support
-- reusable research output relevant to the current execution
-
-Research Briefs support interpretation and execution, but they are not the current standing analytical state.
+Editorial should also not rebuild an obsolete layered analytical model in its own working memory.
 
 ## Workflow Anchoring
 
-Editorial workflow objects should not require dense analytical linking into desk state.
+Editorial workflow should remain anchored in:
+- `Topic`
+- `Editorial Assignment`
+- `Publication Item`
 
-The explicit downstream links that matter are:
+Analytical inputs support those workflow objects, but workflow objects should not require dense analytical linking by default.
 
-- workflow lineage between Topic, Editorial Assignment, Draft, and Publication Item
-- Source Material linkage where attribution or provenance materially matters
+The important explicit links remain:
+- workflow lineage
+- attribution and provenance where needed
 
-Implementation should not force Topics, Editorial Assignments, Drafts, or Publication Items to carry structured links to desk theses, desk views, theme theses, theme views, desk notes, or research briefs by default.
+## Worked Example
 
-## Worked Example: Assignment Support Update
-
-This example shows the intended routing behavior during active execution.
-
-1. A channel editor asks a relevant Domain Desk for help on an active Assignment.
-2. The Domain Desk issues a Desk Note.
-3. Strategist receives that Desk Note as part of the desk's default analytical output.
-4. If Strategist needs to change current posture, Strategist issues a Viewpoint Signal.
-5. The Domain Desk updates its current understanding and, if the changed posture should be expressed outwardly for the active Assignment, issues a new Desk Note.
-6. Editors Desk routes that refreshed assignment-relevant Desk Note to the channel editor.
-
-This is an event-based flow.
-
-It does not require:
-- a separate coordination layer
-- direct raw Viewpoint Signal delivery to the channel editor
-- the original Desk Note to remain the operative tactical read once the desk has issued the refreshed note
-
-## What Is Not Required
-
-Axis does not require:
-
-- Desk Notes to exist before editorial can use current views or theses
-- Research Briefs to exist before editorial can act when current domain understanding is sufficient
-- editorial to choose exactly one analytical surface per Topic or Assignment
-- Desk Notes to be treated as more authoritative than current views
+1. Editors Desk inspects the current state of a relevant Analytical Desk.
+2. Editors Desk asks a direct question about a developing story angle.
+3. The desk decides that a bounded outward answer is warranted and publishes a `Desk Note`.
+4. Editors Desk uses the current-state surface plus that note to refine a `Topic`.
+5. A channel editor later receives the assignment-relevant subset of that analytical material.
 
 ## Implementation Guardrail
 
-If an implementation choice would cause editorial behavior to collapse back to:
-
-- Desk Notes plus Research Briefs only
-- or Desk Notes as the sole analytical authority
+If an implementation choice would make editorial behave like:
+- a raw-signal consumer
+- a desk-note-only consumer
+- a system that rebuilds obsolete shadow analytical objects in the producer layer
 
 that implementation is drifting from the canonical Axis design.
-
-If an implementation choice would make designated trend-oriented canonical Signals behave like:
-
-- final analytical authority
-- direct channel-editor input by default
-- a replacement for Domain Desk interpretation
-
-that implementation is also drifting from the canonical Axis design.

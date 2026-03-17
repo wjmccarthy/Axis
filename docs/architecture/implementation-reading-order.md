@@ -12,8 +12,9 @@ Read and apply documents in this order:
 
 1. [/Users/wjm/Code/Axis/SPECIFICATION.md](/Users/wjm/Code/Axis/SPECIFICATION.md)
 2. relevant notes in [/Users/wjm/Code/Axis/docs/architecture/](/Users/wjm/Code/Axis/docs/architecture)
-3. [/Users/wjm/Code/Axis/ROADMAP.md](/Users/wjm/Code/Axis/ROADMAP.md) for sequencing only
-4. [/Users/wjm/Code/Axis/docs/architecture/OPENCLAW_PROGRAMMERS_GUIDE.md](/Users/wjm/Code/Axis/docs/architecture/OPENCLAW_PROGRAMMERS_GUIDE.md) for OpenClaw-specific framework constraints
+3. relevant notes in [/Users/wjm/Code/Axis/docs/implementation/](/Users/wjm/Code/Axis/docs/implementation/)
+4. [/Users/wjm/Code/Axis/ROADMAP.md](/Users/wjm/Code/Axis/ROADMAP.md) for sequencing only
+5. [/Users/wjm/Code/Axis/docs/architecture/OPENCLAW_PROGRAMMERS_GUIDE.md](/Users/wjm/Code/Axis/docs/architecture/OPENCLAW_PROGRAMMERS_GUIDE.md) for OpenClaw-specific framework constraints
 
 ## Canonical Rule
 
@@ -21,7 +22,11 @@ Read and apply documents in this order:
 
 The architecture docs are subordinate implementation guidance.
 
+The implementation docs contain current first-pass implementation-shaping notes derived from the spec and architecture docs.
+
 If an architecture doc appears to conflict with the spec, the spec wins.
+
+If an implementation doc appears to conflict with the spec, the spec wins.
 
 ## Reading by Area
 
@@ -50,11 +55,19 @@ Read:
 - [/Users/wjm/Code/Axis/docs/architecture/signal-ingestion.md](/Users/wjm/Code/Axis/docs/architecture/signal-ingestion.md)
 - [/Users/wjm/Code/Axis/docs/architecture/report-watch.md](/Users/wjm/Code/Axis/docs/architecture/report-watch.md)
 
-### Desk and theme interpretation
+### Expert and desk interpretation
 
 Read:
 
-- [/Users/wjm/Code/Axis/docs/architecture/domain-desk-operating-guide.md](/Users/wjm/Code/Axis/docs/architecture/domain-desk-operating-guide.md)
+- [/Users/wjm/Code/Axis/docs/architecture/expert-reward-function.md](/Users/wjm/Code/Axis/docs/architecture/expert-reward-function.md)
+- [/Users/wjm/Code/Axis/docs/architecture/analytical-desk-operating-guide.md](/Users/wjm/Code/Axis/docs/architecture/analytical-desk-operating-guide.md)
+- [/Users/wjm/Code/Axis/docs/implementation/desk-and-expert-roster.md](/Users/wjm/Code/Axis/docs/implementation/desk-and-expert-roster.md)
+
+### Historical context
+
+Read only if needed:
+
+- [/Users/wjm/Code/Axis/docs/implementation/THEMES_ARCHIVE.md](/Users/wjm/Code/Axis/docs/implementation/THEMES_ARCHIVE.md)
 
 ### Research behavior
 

@@ -23,7 +23,7 @@ This document defines:
 
 - system roles and decision rights
 - core objects and workflow boundaries
-- theme, desk, and editorial architecture
+- expert, desk, and editorial architecture
 
 This document does not define:
 
@@ -34,17 +34,16 @@ This document does not define:
 
 ## Operating Model Summary
 
-Signal Desk collects and classifies raw signals, routes them to the relevant Domain Desks, and those Domain Desks synthesize them into evolving desk views for their domains. Lead desks maintain Theme Views for the themes they lead, and Desk Notes express selected current judgments from those desk views and theme views. Domain Desks send their analytical output to Strategist and Editors Desk by default. When a desk is collaborating on a theme led elsewhere, it also selectively shares relevant views and notes with the lead desk for that theme. Editors Desk also receives designated trend-oriented canonical Signals from Signal Desk for topic generation and sequencing. Editors Desk routes assignment-relevant analytical subsets to channel editors rather than requiring channel editors to consume the full cross-system analytical surface. Research Desk supports the system only when a valid Research Request exists, and channel editors turn Topics and Editorial Assignments into publication outputs using current Desk Theses, Desk Views, Theme Theses, Theme Views, Desk Notes, and relevant Research Briefs from Domain Desks.
+Signal Desk collects and normalizes raw signals, then routes canonical Signals to the relevant Experts. Experts are permanent system-level interpretive agents that maintain their own signal-rooted state and generate desk-directed Calls or ordinary Contributions when warranted. Analytical Desks are the layer where Axis implements its mixture-of-experts reasoning pattern: they deliberate over expert input, maintain current desk state, answer questions, and publish Desk Notes to subscribers. Strategist participates across analytical desks, steers debate, and can veto belief adoption, but does not unilaterally force adoption. Producer Desks consume analytical output through current-state surfaces, desk notes, and direct questions rather than through the raw signal firehose. Research Desk supports the system only when a valid Research Request exists.
 
 ## Operating Principles
 
 - The system is organized around **signals**
 - **Attention is strategy**; agents do not independently decide what matters
 - External collection is organized primarily by **source type**
-- Interpretation is organized primarily by **domain expertise**
-- **Domains** are permanent specialist lenses
-- **Themes** are durable strategic frames controlled by the human operator
-- **Domain Desks perform the analysis** for their domains
+- Interpretation is organized through **Experts** and **Analytical Desks**
+- **Experts** are permanent specialist lenses
+- **Analytical Desks** are the top analytical synthesis layer
 - Internal knowledge should compound over time and be reusable across future assignments and channels
 - Human publication approval is required on all externally distributed content until the system proves otherwise
 
@@ -58,7 +57,7 @@ Signals are the system’s incoming observation layer and strategist-generated g
   - **External Signals** coming from outside monitored sources
   - **Viewpoint Signals** created by the Strategist
 - **Research Briefs** are not signals; they are reusable research outputs containing evidence and findings
-- **Desk Notes** are not signals; they are Domain-Desk interpretations of signals and research
+- **Desk Notes** are not signals; they are desk-published analytical communications
 - **Topics, Editorial Assignments, and Publication Items** are workflow objects, not signals
 
 ### Signal Types
@@ -81,491 +80,55 @@ Signals are the system’s incoming observation layer and strategist-generated g
 - **Signal Desk** ingests, normalizes, and classifies External Signals
 - **Strategist** creates and updates Viewpoint Signals
 - **Signal Desk** receives Viewpoint Signals to inform what to watch for, what to prioritize, and how to route relevant External Signals
-- **Domain Desks** receive routed External Signals and relevant Viewpoint Signals
-- **Domain Desks** interpret External Signals in light of current Viewpoint Signals and produce Desk Notes
-- **Lead desks** maintain current Theme Views for the themes they lead
+- **Signal Desk** routes canonical Signals to the relevant Experts
+- **Experts** update their own feed, watchlist, ideas, beliefs, and calls from the signals they receive
+- **Experts** generate desk-directed Calls when they need to propose, support, or challenge desk ideas or beliefs
+- **Experts** also make ordinary Contributions inside ongoing desk debate
+- **Analytical Desks** deliberate over expert input, maintain current desk state, and publish Desk Notes when warranted
 - **Research Desk** supports the system by producing Research Briefs when valid Research Requests exist; it does not produce signals
-- **Domain Desks** send Desk Theses, Desk Views, Theme Theses, Theme Views, Desk Notes, and relevant Research Briefs to Strategist and Editors Desk by default
-- **Domain Desks** also selectively share relevant views and notes with lead desks when collaborating on themes led elsewhere
-- **Signal Desk** may also route designated trend-oriented canonical Signals directly to Editors Desk for Topic generation and sequencing
+- **Analytical Desks** expose current-state surfaces and publish Desk Notes to Strategist, Producer Desks, and selectively subscribed Analytical Desks
+- **Producer Desks** inspect analytical current state, subscribe to Desk Notes, and ask direct questions of Analytical Desks
 - **Editors Desk** uses the analytical output it receives for Topic generation, sequencing, and channel planning
 - **channel editors** consume the subset of those analytical surfaces routed to their current Assignments rather than raw signal flow
 
 ### Signal Ranking and Guidance
 
 - The system uses a **ranking model**, not a fixed signal hierarchy
-- **Signal Desk** assigns initial signal rank based on signal quality, novelty, timeliness, corroboration, expected significance, and fit to current themes and desk mandates
-- **Domain Desks** apply domain-specific ranking based on relevance within their mandates
+- **Signal Desk** assigns initial signal rank based on signal quality, novelty, timeliness, corroboration, expected significance, and fit to current routing guidance
+- **Experts** apply scope-specific ranking based on relevance within their standing interpretive remit
 - **Viewpoint Signals** guide priority, monitoring attention, routing, and interpretation
-- Domain Desks apply their specialist judgment to the External Signals they receive and express that judgment through Desk Notes
-- Strategist synthesizes Desk Notes, Theme Views, and Viewpoint Signals into final system priority, thematic meaning, and escalation decisions
+- Experts apply their specialist judgment to the External Signals they receive and surface that judgment through Calls, Contributions, and changes to exposed expert state
+- Analytical Desks synthesize expert input into current desk state and Desk Notes
+- Strategist synthesizes desk output and Viewpoint Signals into final system priority, strategic meaning, and escalation decisions
 - External Signals that materially challenge an existing Viewpoint Signal should be escalated for review
 
 ### Analytical Surfaces
 
-- Desk Views and Theme Views are the authoritative current analytical state
-- Desk Notes are faster point-in-time expressions of judgment drawn from that state
-- In fast-moving situations, editorial may see a new Desk Note before the more authoritative Desk View or Theme View has been updated
-- When a newer Desk Note conflicts with an older Desk View or Theme View in a fast-moving situation, editorial should treat the newer note as the current tactical read until the more authoritative view catches up
-- Editors Desk may use Desk Theses, Theme Theses, and relevant Research Briefs from Domain Desks in addition to current views and notes when they materially improve Topic generation, framing, or continuity
-- Editors Desk may also use designated trend-oriented canonical Signals from Signal Desk for Topic generation and sequencing, but those trend inputs do not replace domain analytical authority
-
-## Domains and Themes
-
-### Domains
-
-- Permanent specialist lenses used for interpretation
-- Implemented through Domain Desks
-
-### Themes
-
-- Durable strategic frames controlled by the human operator
-- A single event may activate multiple themes at once
-- Themes are revised deliberately rather than routinely aged out
-- Each theme may have an evolving **Theme View**, which is the current interpretation of that theme
-- Theme Views are owned by the theme's lead desk
-- Theme Views are derived from and should remain consistent with the lead desk's desk view
-- Theme Views may incorporate relevant collaborator-desk views where the theme crosses domains
-- Theme Views remain subject to Strategist override or reprioritization when needed for system-level coherence
-
-## Theme Definitions
-
-The theme definitions below are the canonical source for theme meaning, lead ownership, collaborator desks, relevance boundaries, and primary drivers.
-
-### 1. Copper Supply and the Energy Buildout
-
-**Core question**\
-Can copper supply, processing, and project development keep pace with electrification, grid expansion, and industrial buildout?
-
-**Definition**\
-This theme covers how copper mine supply, processing capacity, project realism, and demand growth interact to constrain or enable electrification and broader industrial expansion.
-
-**Lead desk**\
-Mining & Strategic Materials Desk
-
-**Collaborator desks**
-
-- Power Systems & Grid Desk
-- Project & Capital Economics Desk
-- Geopolitics & State Power Desk
-
-**Primary drivers**
-
-- mine supply growth and depletion
-- ore grade decline
-- permitting timelines
-- project financing conditions
-- capex inflation
-- smelting and refining capacity
-- treatment and refining charges
-- visible inventories and stock levels
-- electrification, grid, and industrial demand growth
-- trade policy affecting concentrate or refined flows
-
-**Direct relevance**\
-A signal is directly relevant when it materially changes expected copper availability, processing capacity, project viability, or demand intensity in ways that affect electrification or industrial buildout.
-
-**Not this theme**\
-This theme is not about broad metals commentary, generic mining news, or battery-material stories unless they materially change copper supply, copper processing, or the role of copper in the buildout.
-
-**Material change triggers**
-
-- a major project delay, cancellation, or financing failure
-- a meaningful change in refining or smelting capacity
-- a material shift in expected demand intensity from electrification or grid buildout
-- a policy or trade action that materially alters copper flows or pricing
-
-### 2. Rare Earths and Magnet-Supply Concentration
-
-**Core question**\
-Where are the real choke points in rare-earth refining and magnet production, and how durable is concentrated control?
-
-**Definition**\
-This theme covers the supply-chain concentration, refining bottlenecks, magnet-value-chain control, and strategic leverage embedded in the rare-earth and magnet system.
-
-**Lead desk**\
-Mining & Strategic Materials Desk
-
-**Collaborator desks**
-
-- Geopolitics & State Power Desk
-- Defense Desk
-- Project & Capital Economics Desk
-
-**Primary drivers**
-
-- separation and refining capacity
-- magnet manufacturing concentration
-- Chinese industrial policy
-- ex-China project development
-- heavy versus light rare-earth availability
-- environmental and processing complexity
-- export controls and retaliation risk
-- downstream localization efforts
-- defense demand
-- pricing power at the refining and magnet stages
-
-**Direct relevance**\
-A signal is directly relevant when it materially changes control, availability, localization prospects, or bottleneck severity within the rare-earth and magnet value chain.
-
-**Not this theme**\
-This theme is not about generic mining activity, broad EV commentary, or abstract geopolitical rhetoric without a clear rare-earth or magnet transmission channel.
-
-**Material change triggers**
-
-- a change in export-control regime or retaliation posture
-- a meaningful shift in ex-China separation, refining, or magnet capacity
-- a new bottleneck in heavy rare-earths or downstream magnet production
-- a defense or industrial-policy move that materially reprioritizes access to magnet inputs
-
-### 3. Defense Demand, Strategic Stockpiling, and the Modern Kill Chain
-
-**Core question**\
-How does defense demand reshape the strategic value, scarcity, and control of critical materials, industrial inputs, and supply chains?
-
-**Definition**\
-This theme covers how defense demand, strategic stockpiling, procurement cycles, surge production, and military-industrial mobilization change the importance, availability, and control of materials, components, and industrial systems that matter to modern warfare and deterrence.
-
-**Lead desk**\
-Defense Desk
-
-**Collaborator desks**
-
-- Mining & Strategic Materials Desk
-- Geopolitics & State Power Desk
-- Project & Capital Economics Desk
-
-**Primary drivers**
-
-- defense-industrial demand growth
-- strategic stockpiling behavior
-- procurement-cycle timing and replenishment demand
-- surge production requirements
-- defense-priority access to constrained materials and components
-- concentration of refining, alloying, magnet, and processing capacity
-- sanctions and wartime supply-denial risk
-- alliance coordination for secure defense supply chains
-- dual-use competition between civilian and military demand
-- mobilization capacity and production bottlenecks
-
-**Direct relevance**\
-A signal is directly relevant when it materially changes defense demand for critical inputs, access to them, or the industrial capacity needed to produce and replenish military systems.
-
-**Not this theme**\
-This theme is not about generic geopolitics, broad materials commentary without defense relevance, or national-security rhetoric that does not change procurement, stockpiling, or supply-chain conditions.
-
-**Material change triggers**
-
-- a material acceleration in procurement or replenishment cycles
-- a stockpiling move that changes access to constrained inputs
-- emergence of hidden bottlenecks in defense-critical materials or components
-- clear reprioritization of supply toward military use
-
-### 4. Oil, Gas, and Energy Security
-
-**Core question**\
-Can the current hydrocarbon system remain supplied, transportable, and politically secure under stress?
-
-**Definition**\
-This theme covers the near-term security, resilience, and strategic vulnerability of the oil and gas system, including supply, refining, transport, chokepoints, producer behavior, and state conflict that materially affect the current operating environment.
-
-**Lead desk**\
-Oil & Gas Desk
-
-**Collaborator desks**
-
-- Geopolitics & State Power Desk
-- Project & Capital Economics Desk
-- Defense Desk
-- Macro, Rates, Liquidity & Capital Flows Desk
-
-**Primary drivers**
-
-- upstream investment discipline
-- producer policy and spare-capacity credibility
-- refining margins and product spreads
-- LNG capacity and gas trade
-- shipping-lane and chokepoint security
-- sanctions and export restrictions
-- inventory levels and visible tightness
-- energy-import dependence
-- state conflict affecting production or transport
-- refined-product dislocations versus crude balances
-
-**Direct relevance**\
-A signal is directly relevant when it materially changes the expected availability, flow, pricing, or security of hydrocarbons in the present operating environment.
-
-**Not this theme**\
-This theme is not about long-run replacement of hydrocarbons, future generation architectures, or generic macro commentary without a direct hydrocarbon-security transmission channel.
-
-**Material change triggers**
-
-- a material change in spare-capacity assumptions
-- a chokepoint moving from background risk to active disruption
-- sanctions or conflict materially rewiring hydrocarbon flows
-- LNG or refining structure changes that alter system resilience
-
-### 5. Strategic Supply Chains and Economic Statecraft
-
-**Core question**\
-How are states using industrial, trade, and supply-chain tools to secure advantage and deny it to rivals?
-
-**Definition**\
-This theme covers the structural use of industrial policy, export controls, sanctions, localization, strategic deals, and state-backed coordination to secure control over strategic materials, energy, and industrial systems.
-
-**Lead desk**\
-Geopolitics & State Power Desk
-
-**Collaborator desks**
-
-- Mining & Strategic Materials Desk
-- Oil & Gas Desk
-- Defense Desk
-- Project & Capital Economics Desk
-- Macro, Rates, Liquidity & Capital Flows Desk
-
-**Primary drivers**
-
-- export controls
-- sanctions
-- tariffs and trade restrictions
-- subsidies and industrial-policy incentives
-- strategic reserve policy
-- state-backed financing
-- alliance formation and friend-shoring
-- localization mandates
-- security-of-supply concerns
-- strategic deals for energy, materials, and industrial inputs
-
-**Direct relevance**\
-A signal is directly relevant when it materially changes how states secure access to strategic inputs, constrain rivals, or reorganize supply chains through deliberate policy and economic tools.
-
-**Not this theme**\
-This theme is not about acute crisis transmission by itself, generic geopolitical rhetoric, or corporate activity that lacks a meaningful state-power or strategic-supply-chain dimension.
-
-**Material change triggers**
-
-- a new export-control, sanction, tariff, or localization regime
-- a meaningful alliance or supply-chain realignment
-- state-backed deals that materially alter control over strategic inputs
-- a shift in policy durability or enforceability
-
-### 6. Project and Capital Economics
-
-**Core question**\
-What determines whether physical-economy projects can actually be financed, built, and completed on viable terms?
-
-**Definition**\
-This theme covers the capital, construction, financing, dilution, and execution realities that determine whether strategic projects move from concept to operating asset.
-
-**Lead desk**\
-Project & Capital Economics Desk
-
-**Collaborator desks**
-
-- Macro, Rates, Liquidity & Capital Flows Desk
-- Mining & Strategic Materials Desk
-- Oil & Gas Desk
-- Power Systems & Grid Desk
-- Geopolitics & State Power Desk
-
-**Primary drivers**
-
-- rates and cost of capital
-- credit conditions
-- equity market receptivity
-- commodity price expectations
-- capex inflation
-- construction risk
-- permitting and legal delay
-- offtake availability
-- dilution and capital structure
-- strategic partner support
-
-**Direct relevance**\
-A signal is directly relevant when it materially changes the probability that a project can be financed, sanctioned, built, commissioned, or sustained on viable economic terms.
-
-**Not this theme**\
-This theme is not about generic market moves, sector narratives without project-level transmission, or abstract valuation commentary without project-financing consequences.
-
-**Material change triggers**
-
-- financing windows opening or closing materially
-- a major cost overrun, schedule slip, or commissioning failure
-- meaningful change in capital-stack fragility or sponsor support
-- offtake, permitting, or partner changes that alter project viability
-
-### 7. AI Demand, Power Constraints, and Grid Stress
-
-**Core question**\
-What happens when AI-driven electricity demand collides with the existing power system’s bottlenecks?
-
-**Definition**\
-This theme covers how AI and data-center load growth interact with interconnection queues, reserve margins, transmission limits, generation availability, and utility buildout timelines to stress the power system now and in the medium term.
-
-**Lead desk**\
-Power Systems & Grid Desk
-
-**Collaborator desks**
-
-- Oil & Gas Desk
-- Project & Capital Economics Desk
-- Macro, Rates, Liquidity & Capital Flows Desk
-- Mining & Strategic Materials Desk
-
-**Primary drivers**
-
-- data-center power demand growth
-- hyperscaler capex and site selection
-- utility interconnection queues
-- grid congestion and transmission buildout
-- reserve margins and reliability risk
-- natural-gas availability for power
-- transformer and electrical-equipment bottlenecks
-- local permitting and political resistance
-- cooling, water, and land constraints for new load clusters
-
-**Direct relevance**\
-A signal is directly relevant when it materially changes the current or medium-term ability of the power system to serve AI-driven load growth.
-
-**Not this theme**\
-This theme is not about generic AI hype, long-run civilizational energy abundance, or abstract future-generation debates unless they materially affect current or medium-term power-system stress.
-
-**Material change triggers**
-
-- a large upward revision in AI-driven demand expectations
-- worsening or easing of interconnection and transmission bottlenecks
-- reserve-margin deterioration or reliability stress
-- a material change in the near-term generation response available to meet new load
-
-### 8. Energy Abundance and the Future of Power Generation
-
-**Core question**\
-Which generation pathways can expand civilization’s energy base and move the power system from constraint toward abundance?
-
-**Definition**\
-This theme covers how nuclear, solar, fusion, storage, and other generation pathways may expand long-run energy supply, reshape power economics, and determine whether society can scale to a much higher-energy future.
-
-**Lead desk**\
-Power Systems & Grid Desk
-
-**Collaborator desks**
-
-- Mining & Strategic Materials Desk
-- Project & Capital Economics Desk
-- Defense Desk
-
-**Primary drivers**
-
-- nuclear buildout and fuel-cycle viability
-- solar deployment and generation economics
-- fusion technical and commercial progress
-- storage economics where it changes generation architecture
-- long-run generation cost curves
-- scaling speed of generation buildout
-- baseload versus intermittent economics
-- permitting and physical build constraints for new generation systems
-
-**Direct relevance**\
-A signal is directly relevant when it materially changes the long-run viability, scale, cost, or strategic role of a future generation pathway.
-
-**Not this theme**\
-This theme is not about current hydrocarbon security shocks, immediate grid congestion from today’s AI load, or generic clean-tech enthusiasm without system-level energy implications.
-
-**Material change triggers**
-
-- a major change in nuclear, solar, fusion, or storage cost and scale expectations
-- new evidence that a generation pathway is becoming system-defining or system-limited
-- a fuel-cycle or physical-build bottleneck that changes long-run generation viability
-- a strategic shift in how the future power mix is likely to be built
-
-### 9. Monetary Order Transition
-
-**Core question**\
-Is the monetary order shifting in ways that materially change capital access, commodity pricing, and strategic financing conditions for the physical economy?
-
-**Definition**\
-This theme covers changes in the monetary order, especially stress, erosion, or restructuring in the dollar-centered system, where those changes alter capital formation, funding conditions, strategic asset allocation, collateral behavior, settlement patterns, or commodity pricing in ways that matter to the physical economy.
-
-**Lead desk**\
-Macro, Rates, Liquidity & Capital Flows Desk
-
-**Collaborator desks**
-
-- Project & Capital Economics Desk
-- Geopolitics & State Power Desk
-- Oil & Gas Desk
-- Power Systems & Grid Desk
-- Mining & Strategic Materials Desk
-
-**Primary drivers**
-
-- dollar-system stress or transition
-- reserve and settlement behavior
-- rates, liquidity, and credit conditions
-- capital availability for physical-economy assets
-- sanctions-driven payment system alternatives
-- collateral regime changes
-- commodity pricing basis shifts
-- sovereign financing conditions
-- capital rotation affecting real-asset financing
-
-**Direct relevance**\
-A signal is directly relevant when it materially changes how the physical economy is financed, priced, collateralized, or strategically funded.
-
-**Not this theme**\
-This theme is not about generic market commentary, routine central-bank coverage with no physical-economy transmission, or crypto as a standalone speculative topic.
-
-**Material change triggers**
-
-- a meaningful settlement or reserve-behavior shift
-- dollar funding stress that changes project or commodity financing conditions
-- sanctions creating alternative rails for strategic trade
-- a liquidity or collateral regime shift with structural physical-economy effects
-
-### 10. Geopolitical Crisis, Conflict, and System Disruption
-
-**Core question**\
-When acute geopolitical stress hits, how does it propagate through energy, materials, logistics, and capital systems?
-
-**Definition**\
-This theme covers how war, conflict, chokepoint disruption, sanctions escalation, political instability, and acute state confrontation propagate through the physical economy and change the operating environment.
-
-**Lead desk**\
-Geopolitics & State Power Desk
-
-**Collaborator desks**
-
-- Defense Desk
-- Oil & Gas Desk
-- Mining & Strategic Materials Desk
-- Project & Capital Economics Desk
-- Macro, Rates, Liquidity & Capital Flows Desk
-
-**Primary drivers**
-
-- war and conflict risk
-- shipping-lane and chokepoint security
-- sanctions escalation during crisis
-- political instability in producer states
-- military mobilization and emergency demand
-- state confrontation affecting material or energy flows
-- outage, sabotage, or force-majeure risk
-- sovereign financing stress under conflict
-- emergency repricing of strategic vulnerability
-
-**Direct relevance**\
-A signal is directly relevant when it materially disrupts flows, capital access, operating conditions, or strategic security across the physical economy.
-
-**Not this theme**\
-This theme is not about structural industrial-policy competition by itself, broad geopolitical rhetoric without transmission into the physical economy, or long-run strategy detached from acute disruption.
-
-**Material change triggers**
-
-- a conflict escalation that changes flows or operating conditions materially
-- a chokepoint moving from threatened to disrupted
-- sanctions escalation with real transmission into energy, materials, or finance
-- acute producer-state instability changing expected supply or capital conditions
+- Analytical Desks are the authoritative current analytical state layer
+- each analytical desk exposes a current-state surface containing:
+  - core position
+  - beliefs
+  - selected ideas
+- Desk Notes are published communications from analytical desks to their subscribers
+- desk notes are not the same thing as current desk state
+- in fast-moving situations, subscribers may see a new Desk Note before the desk's exposed current-state surface has fully caught up
+- when a newer Desk Note conflicts with older desk state in a fast-moving situation, subscribers should treat the newer note as the current tactical read until the desk state catches up
+- Producer Desks may use current analytical desk state, Desk Notes, and relevant Research Briefs when they materially improve Topic generation, framing, or continuity
+
+## Desk Classes
+
+Axis uses four desk classes:
+
+1. `Signal Desks`
+   - produce, normalize, and route signals
+2. `Support Desks`
+   - respond to bounded requests
+3. `Analytical Desks`
+   - implement the mixture-of-experts reasoning pattern
+4. `Producer Desks`
+   - use analytical output to produce downstream work
+
+The word `Desk` is shared across these classes even though the desks are not structurally identical.
 
 ## Core Objects
 
@@ -606,37 +169,137 @@ For Viewpoint Signals specifically:
 - May generate zero or more Editorial Assignments
 - Editorial Assignments may be created only from **approved** Topics
 
-### Theme
+### Expert
 
-- A durable strategic frame controlled by the human operator
+- A permanent system-level interpretive agent with stable identity
+- Has a standing remit defining the narrow scope of signals and developments it is responsible for interpreting
+- Is the primary routing target for incoming Signals
+- May be assigned to one or more Analytical Desks
+- Analytical Desk assignment is desk-controlled
+- Analytical Desk membership is fluid
+- Is expected to contribute when assigned to an Analytical Desk
+- Owns expert-local state and an exposed Expert Surface
+- Applies its own beliefs and ideas differently across desks through desk-directed Calls and ordinary Contributions
 
-### Beliefs
+### Expert Feed
 
-- The desk-owned container for a desk's current analytical state
-- Represented canonically as a Markdown file
-- Contains the desk's current Desk Thesis, Desk Views, and any Theme Theses and Theme Views owned by that desk
-- Serves as the current persisted container from which the desk works
-
-### Signal Feed
-
-- A desk-local working document holding the last `N` routed signals most relevant to that desk
-- Represents recent signal flow and short-horizon temporal memory rather than standing analytical state
-- Exists to help the desk notice recurrence, repetition, and near-term pattern formation before those patterns justify Beliefs changes
-- Is desk-local and not a shared analytical output surface
+- An expert-local working document holding the last `N` routed signals most relevant to that expert
+- Represents recent signal flow rather than exposed analytical state
+- Is local to the expert and not a shared analytical output surface
 - Internal structure is intentionally implementation-flexible
 
-### Desk Scratchpad
+### Expert Watchlist
 
-- A desk-local working document for developing views, unresolved patterns, and signal pressure that does not yet belong in Beliefs
-- Represents temporal working memory rather than shared current analytical state
-- May accumulate observations from repeated or resurfacing signals even when those signals have not yet changed Beliefs
-- Is desk-local and not a shared analytical output surface
-- Should preserve archived history over time
+- An expert-local tracked set derived from the expert's feed
+- May include selected feed items and derived or calculated items
+- Expresses what the expert actively values and tracks in its scope
+- Is exposed on the expert surface
 - Internal structure is intentionally implementation-flexible
 
-### Theme List
+### Expert Ideas
 
-- The Editors-Desk-owned working document for current thematic framing, topic-development context, and sequencing context
+- Tentative interpretations maintained by an expert in its own scope
+- May later inform calls, beliefs, or ordinary contributions
+- The expert decides which ideas to surface
+- Internal structure is intentionally implementation-flexible
+
+### Expert Beliefs
+
+- Condensed standing knowledge maintained by an expert in its own scope
+- Represent the expert's slower-moving knowledge layer
+- Are exposed on the expert surface
+- May influence multiple desks differently through calls and contributions
+- Internal structure is intentionally implementation-flexible
+
+### Expert Calls
+
+- Desk-directed interventions created by an expert when the expert decides they are needed
+- A call may:
+  - propose a new desk idea
+  - support an existing desk idea
+  - challenge an existing desk idea
+  - support an existing desk belief
+  - challenge an existing desk belief
+- The expert decides when a call is active or inactive on the expert surface
+- A call's active state on the expert surface is independent of how the desk handles it
+- Active calls are exposed on the expert surface
+- Internal structure is intentionally implementation-flexible
+
+### Expert Surface
+
+- A first-class persisted current-state publication object owned by an Expert
+- Is distinct from the Expert's underlying memory objects
+- Is built from Expert Watchlist, Expert Beliefs, Expert Ideas, and Expert Calls
+- Contains:
+  - watchlist
+  - beliefs
+  - selected ideas
+  - active calls
+- Is inspectable across the system
+- Is curated by the expert
+- Internal structure is intentionally implementation-flexible
+
+### Analytical Desk
+
+- A top-layer analytical synthesis unit implementing the mixture-of-experts reasoning pattern
+- Has stable identity relative to the topic, sector, or strategic question it represents
+- Is composed from assigned Experts
+- Accepts direct questions from other desks and Producer Desks
+- May open Research Requests when assigned experts cannot answer sufficiently
+- May open Signal Requests when bounded signal retrieval is needed
+- Publishes a Current State Surface and Desk Notes for downstream consumers
+- May have subscribers including Strategist, Producer Desks, and selectively subscribed Analytical Desks
+- Owns desk-local state and desk-local governance over debate
+
+### Desk Feed
+
+- An analytical-desk-local working feed collecting expert calls, expert contributions, and other desk-relevant incoming context
+- Not a raw signal inbox
+- May also receive desk notes from other analytical desks as informational context
+- Exists to support desk deliberation rather than to serve as exposed current state
+- Internal structure is intentionally implementation-flexible
+
+### Desk Ideas
+
+- Live desk-level claims under active or standing debate
+- Represent the short-cycle, shifting frontier of desk thinking
+- May persist for long periods
+- May later become desk beliefs if agreement rises enough
+- May be merged, split, or reframed by the desk when appropriate
+- Internal structure is intentionally implementation-flexible
+
+### Desk Beliefs
+
+- Adopted desk-level claims with sufficient agreement to count as current desk position
+- Represent the longer-cycle, structural adopted layer of desk thinking
+- May later return to idea status if agreement weakens enough
+- May be merged, split, or reframed by the desk when appropriate
+- Internal structure is intentionally implementation-flexible
+
+### Desk Debates
+
+- Internal analytical-desk deliberative memory around ideas and beliefs
+- Store the active reasoning context behind desk disagreement, movement, and support
+- Are internal only and not part of the exposed desk surface
+- Internal structure is intentionally implementation-flexible
+
+### Current State Surface
+
+- A first-class persisted current-state publication object owned by an Analytical Desk
+- Is distinct from the desk's underlying memory objects
+- Is built from Desk Beliefs and selected Desk Ideas
+- Contains:
+  - core position
+  - beliefs
+  - selected ideas
+- Core position is a summary statement of the desk's core belief, stated relative to the topic or sector the desk represents
+- Is inspectable across the system
+- Is the main current-state interface used by subscribers and Producer Desks
+- Internal structure is intentionally implementation-flexible
+
+### Editorial Agenda
+
+- The Editors-Desk-owned working document for current editorial framing, topic-development context, and sequencing context
 - Represented canonically as a Markdown file
 - Distinct from Topics and Editorial Assignments as workflow objects
 - Serves as the current persisted document from which Editors Desk develops and sequences Topics
@@ -645,13 +308,13 @@ For Viewpoint Signals specifically:
 
 - An Editors-Desk-local working document holding the last `N` feed items most relevant to current Topic generation and sequencing
 - Represents recent editorial input flow rather than workflow state
-- May include domain analytical output and designated trend-oriented canonical Signals received by Editors Desk
+- May include analytical desk output, desk notes, desk answers, and other editor-relevant incoming material
 - Is desk-local and not a workflow object
 - Internal structure is intentionally implementation-flexible
 
 ### Editors Scratchpad
 
-- An Editors-Desk-local working document for developing themes, topic ideas, pairings between trend and domain understanding, and sequencing thoughts that do not yet belong in Theme List or Topics
+- An Editors-Desk-local working document for developing editorial framing, topic ideas, pairings between trend and domain understanding, and sequencing thoughts that do not yet belong in Editorial Agenda or Topics
 - Represents editorial working memory rather than workflow state
 - Should preserve archived history over time
 - Internal structure is intentionally implementation-flexible
@@ -671,52 +334,13 @@ For Viewpoint Signals specifically:
 - Should preserve archived history over time
 - Internal structure is intentionally implementation-flexible
 
-### Desk Thesis
-
-- The durable domain-level conviction layer maintained by a Domain Desk
-- Represents longer-lived domain judgments, structural beliefs, and enduring interpretive commitments within the desk's mandate
-- Evolves more slowly than a Desk View
-- Informed by signals, Research Briefs, prior desk understanding, and relevant Viewpoint Signals, but is not the same thing as a Strategist-generated Thesis Signal
-- Serves as part of the durable interpretive basis for the desk's current Desk View
-
-### Theme Thesis
-
-- The durable thesis layer for a Theme
-- Owned by the Theme's lead desk
-- Represents the longer-lived structural conviction or strategic proposition associated with that Theme
-- Evolves more slowly than a Theme View
-- Must remain consistent with the lead desk's Desk Thesis and the canonical Theme definition
-- May incorporate relevant collaborator-desk input where the Theme crosses domains
-
-### Desk View
-
-- The evolving internal synthesized view maintained by a Domain Desk for its domain
-- Mixed narrative and structured in form
-- Built on top of the desk's current Desk Thesis
-- Continuously updated as new signals, Viewpoint Signals, Research Briefs, prior desk understanding, and other relevant inputs change the desk's understanding
-- May become stale, be revised, be partially overturned, or be strengthened over time
-- Historical change is preserved through archived Beliefs rather than a separate per-view current-state versioning system
-- Serves as the internal interpretive basis from which Desk Notes are produced
-- May evolve from reviewed signals without requiring explicit per-signal mutation records for every internal change
-
-### Theme View
-
-- The evolving current interpretation of a Theme
-- Owned by the Theme's lead desk
-- Built on top of the Theme's current Theme Thesis
-- Derived from and kept consistent with the lead desk's Desk View
-- May incorporate relevant collaborator-desk views where the theme crosses domains
-- Mixed narrative and structured in form
-- May be updated by the lead desk without Strategist approval
-- Subject to Strategist override or reprioritization when needed for system-level coherence
-
 ### Research Request
 
 - The research-work object used to request new research
-- May be opened only by a Domain Desk
+- May be opened only by an Analytical Desk
 - All new research work must enter through a Research Request
 - May support a Topic, but it is not required to do so
-- May support a theme question, a domain question, or another valid strategic research need
+- May support a desk question or another valid strategic research need
 - Defines what needs to be answered, why it matters, how current the answer must be, and who is requesting it
 - May be fully satisfied by existing Research Briefs, partially satisfied by existing Research Briefs plus new work, or require entirely new Research Briefs
 - Major Research Requests require Strategist approval
@@ -726,7 +350,7 @@ For Viewpoint Signals specifically:
 ### Signal Request
 
 - The signal-search work object used to request a bounded search of retained signals
-- May be opened only by a Domain Desk
+- May be opened only by an Analytical Desk
 - Used when a desk needs a filtered signal dump rather than new research
 - Defines the time range, filter criteria, and retrieval need for the request
 - Is fulfilled by Signal Desk
@@ -738,21 +362,21 @@ For Viewpoint Signals specifically:
 - A finished, reusable piece of research work focused on a bounded question
 - Produced by the Research Desk in response to a Research Request
 - Contains evidence, findings, support materials, exhibits, unresolved questions, and reusable research history
-- Supports Domain Desk interpretation but does not by itself constitute final domain analysis
+- Supports Analytical Desk interpretation but does not by itself constitute final desk analysis
 - Becomes a reusable research asset for the requesting desk
 - A single Research Brief may satisfy multiple future Research Requests
 
 ### Desk Note
 
-- A Domain-Desk-produced interpretive output used to communicate selected current judgments from the desk's evolving internal view
-- A single object family with multiple note types, including alert notes, daily summary notes, and topic-specific notes
-- A Desk Note is a point-in-time interpretation or analysis rather than a continuously updated living object
-- Draws on current signals, desk views, one or more Research Briefs, and any needed light refresh work
-- May be produced without issuing a new Research Request when the Domain Desk determines that existing knowledge is sufficient
-- Is consumed alongside Desk Views and Theme Views by the Strategist, Editors Desk, and channel editors
-- Is generally less authoritative than the current Desk View or Theme View, but may surface faster in fast-moving situations
+- An Analytical-Desk-produced communication used to tell subscribers something the desk wants them to know
+- A single object family with multiple note types and publication forms
+- A Desk Note is a point-in-time communication rather than a continuously updated living object
+- May draw on current desk ideas, desk beliefs, expert input, current signals, one or more Research Briefs, and any needed light refresh work
+- May be produced without issuing a new Research Request when the desk determines that existing knowledge is sufficient
+- Is consumed by Strategist, Producer Desks, selectively subscribed Analytical Desks, and routed channel editors where relevant
+- Is generally less authoritative than the desk's current-state surface, but may surface faster in fast-moving situations
 - Desk Notes are cumulative; newer notes do not automatically replace older notes
-- Multiple Domain Desks may produce Desk Notes on the same development
+- Multiple Analytical Desks may produce Desk Notes on the same development
 
 ### Editorial Assignment
 
@@ -773,51 +397,37 @@ For Viewpoint Signals specifically:
 - Is the object Strategist reviews for alignment and final human publication approval
 - Exact timing and representation may vary by channel implementation
 
-## Theme Governance
-
-- Themes are owned by the human operator
-- Canonical theme definitions are stored as read-only files
-- A Theme may be revised by changing its name, scope, definition, lead desk, collaborator desks, primary drivers, or core thesis
-- Themes may be deactivated but will not be deleted
-- Theme revisions should update routing, relevance, topic development, and research framing where applicable
-- A theme's current Theme View is owned by its lead desk rather than by the theme definition itself
-- A lead desk may update its Theme View without Strategist approval
-
 ## Subscription and Routing Model
 
-- Signal Desk classifies external signals and routes normalized Signals directly to the relevant Domain Desks
-- Signals route to Domain Desks, not to themes
-- Theme definitions and desk standing coverage mandates determine which Domain Desks should receive a signal
-- A signal should be routed to a Domain Desk when it matches that desk's standing coverage mandate, theme relevance, or both
-- For each routed destination desk, the system should maintain a persistent desk-local routed-signal record with a `reviewed` flag
-- Themes guide routing but are not themselves consumers
-- Routing to a Domain Desk creates awareness and optional review within its mandate; it does not require action on every signal
-- Signals should remain in active tracking only if at least one Domain Desk is a current consumer
-- Routing itself is sufficient to make a routed Domain Desk a current consumer
+- Signal Desk classifies external signals and routes normalized Signals directly to the relevant Experts
+- Signals route to Experts, not directly to Analytical Desks
+- Strategist guidance and standing expert remit determine which Experts should receive a signal
+- A signal should be routed to an Expert when it matches that expert's standing remit or current strategist guidance
+- Routing to an Expert creates awareness and optional review within that expert's remit; it does not require action on every signal
+- Signals should remain in active tracking only if at least one Expert is a current consumer
+- Routing itself is sufficient to make a routed Expert a current consumer
 - If no current consumer exists, the signal should be classified as background context or likely noise rather than kept active by default
-- Domain Desks produce Desk Notes only when warranted by importance, relevance, or editorial need
-- Strategist receives current desk and theme analytical output across the system rather than raw signals
-- Domain Desks send their analytical output to Editors Desk by default for Topic creation and editorial planning rather than to channel editors directly
-- Channel editors consume the subset of current desk and theme analytical output routed to their current Assignments rather than raw signals
-- Strategist and Editors Desk may also use Desk Theses, Theme Theses, and relevant Research Briefs from Domain Desks where those are needed for interpretation, Topic generation, or execution
-- Editors Desk should receive current analytical state and bounded judgment artifacts suitable for Topic creation and editorial planning, not the raw signal firehose
+- Analytical Desks produce Desk Notes only when warranted by importance, relevance, subscriber need, or editorial need
+- Strategist receives analytical desk output across the system rather than raw signals
+- Producer Desks should receive current analytical desk state and bounded judgment artifacts suitable for Topic creation and editorial planning, not the raw signal firehose
+- Channel editors consume the subset of analytical desk output routed to their current Assignments rather than raw signals
+- Strategist and Producer Desks may also use relevant Research Briefs where those are needed for interpretation, Topic generation, or execution
 - Research Desk should not receive standing signal flow; it works from valid Research Requests
-- Signal Desk may fulfill valid Signal Requests from Domain Desks for bounded retrieval over retained signals
+- Signal Desk may fulfill valid Signal Requests from Analytical Desks for bounded retrieval over retained signals
 - The system should minimize unnecessary duplicate routing and broad low-value distribution
 
 ### Internal Processing Clarification
 
-- Domain Desks may evolve Desk Theses, Desk Views, Theme Theses, and Theme Views from reviewed signals without creating explicit per-signal-to-view mutation records
-- A reviewed signal does not necessarily produce a Desk Note
-- Desk Notes are a fast explicit outward expression of desk judgment, not a mandatory output of every reviewed signal
-- Not every internal desk-view or theme-view change must be represented as a separate formal artifact beyond the current thesis or view object itself
+- Experts may evolve expert feed, watchlist, ideas, beliefs, and calls from reviewed signals without creating explicit per-signal mutation records
+- Analytical Desks may evolve desk feed, ideas, beliefs, and debates from expert input without creating explicit per-input mutation records
+- A reviewed signal does not necessarily produce a call, a contribution, or a Desk Note
+- Desk Notes are a fast explicit outward expression of desk judgment, not a mandatory output of every reviewed signal or every desk-state change
 - The system should not require a cognitive event ledger for every internal interpretive change
-- Domain Desks also require desk-local temporal working memory distinct from Beliefs
-- That temporal working memory should include a Signal Feed and a Desk Scratchpad
-- Signal Feed and Desk Scratchpad are desk-local working surfaces, not shared analytical output
+- Analytical Desks require local working memory including Desk Feed, Desk Ideas, Desk Beliefs, and Desk Debates
+- Experts require local working memory including Expert Feed, Expert Watchlist, Expert Ideas, Expert Beliefs, and Expert Calls
 - Editors Desk also requires working memory distinct from Topics and Assignments
-- That editorial working memory should include a Theme List, an Editors Feed, and an Editors Scratchpad
-- Theme List, Editors Feed, and Editors Scratchpad are Editors-Desk working surfaces, not workflow objects
+- That editorial working memory should include an Editorial Agenda, an Editors Feed, and an Editors Scratchpad
+- Editorial Agenda, Editors Feed, and Editors Scratchpad are Editors-Desk working surfaces, not workflow objects
 - Strategist also requires local working memory distinct from formal signals, approvals, and workflow objects
 - That strategist working memory should include a Strategist Feed History and a Strategist Scratchpad
 - Strategist Feed History and Strategist Scratchpad are strategist working surfaces, not workflow objects
@@ -835,94 +445,115 @@ For Viewpoint Signals specifically:
 
 ## Authority and Approval Model
 
-- **Strategist** owns thesis, themes, priorities, editorial alignment, monitoring policy, major research direction, and final cross-domain coherence
-- **Domain Desks** operate within the Strategist layer as specialist reasoning extensions
+- **Strategist** owns thesis, priorities, editorial alignment, monitoring policy, major research direction, and final cross-domain coherence
+- **Analytical Desks** operate within the Strategist layer as specialist synthesis units
+- **Experts** are permanent system-level interpretive agents assigned to Analytical Desks
 - **Signal Desk** owns monitoring operations and tactical external collection within Strategist-defined policy
 - **Research Desk** owns research execution and evidence gathering within approved scope
 - **Editors Desk** owns Topics and editorial operations across channels, including backlog, slate, sequencing, and reuse planning
 - **Channel editors** own Editorial Assignments and final channel-specific outputs
-- **Research Requests** may be opened only by a Domain Desk
-- **Signal Requests** may be opened only by a Domain Desk
+- **Research Requests** may be opened only by an Analytical Desk
+- **Signal Requests** may be opened only by an Analytical Desk
 - Major, cross-domain, or out-of-scope Research Requests require Strategist approval
-- The Strategist does not open Research Requests directly; Strategist-directed research must still be opened by a Domain Desk
-- Domain Desks may sponsor limited Research Requests within Strategist-approved policy and discretionary budget
-- Domain Desks own domain-level interpretation of research outputs
-- Lead desks own theme-level interpretation for the themes they lead
+- The Strategist does not open Research Requests directly; Strategist-directed research must still be opened by an Analytical Desk
+- Analytical Desks may sponsor limited Research Requests within Strategist-approved policy and discretionary budget
+- Analytical Desks own desk-level interpretation of research outputs
 - Strategist owns cross-domain synthesis and any system-level interpretive updates
 - Publication approval is required before any item is distributed externally
 - There is a single publication approval for external distribution, and it is human approval coordinated through the Strategist
 - The Strategist reviews Publication Items for alignment and coordinates the final human publication approval flow
-- Conflicting domain interpretations are resolved by the Strategist, with input from relevant Domain Desks and editorial participants as needed
+- Conflicting desk interpretations are resolved by the Strategist, with input from relevant Analytical Desks and editorial participants as needed
 - Research Desk determines whether expected research cost crosses the canonical threshold for major-request handling
+
+## Analytical Desk State Flow
+
+- Experts issue Calls and ordinary Contributions into Analytical Desks
+- Calls and Contributions enter Desk Feed
+- Calls create desk-directed pressure on current desk state
+- Desk Debates operate around Desk Ideas and Desk Beliefs
+- Desk Ideas and Desk Beliefs may be merged, split, or reframed by the desk when appropriate
+- Current State Surface is a separate publication object built from current Desk Beliefs and selected Desk Ideas
+- Desk Note is a separate publication object used when the desk wants to tell subscribers something explicitly
+
+## Analytical Desk Governance
+
+- Expert Calls are handled under desk control
+- The desk may merge, defer, suppress, close, or force a vote on a debate
+- The desk may close a debate without taking a vote
+- Every Expert assigned to the desk gets a vote in desk decisions
+- Strategist participates in every analytical desk, has one normal vote in desk decisions, and has veto power over belief adoption
+- Strategist may stop debate, but may not unilaterally force belief adoption
+- An Idea becomes a Belief only with unanimity of desk votes and absent strategist veto
+- A Belief returns to Idea status when challenge reaches at least a `2/3` majority of desk votes
 
 ## Primary Workflows
 
 ### Signal Workflow
 
 1. Signal Desk collects external signals from Strategist-directed sources and watch scopes.
-2. Signals are normalized, deduplicated where appropriate, and classified against themes, desk standing coverage mandates, and relevance class.
-3. Signal Desk routes normalized Signals directly to the relevant Domain Desks.
-4. For each routed destination desk, the system creates or updates a persistent desk-local routed-signal record marked `reviewed=false`.
-5. Routed Domain Desks become current consumers of those signals by virtue of routing.
-6. If a signal has no current Domain Desk consumer, it is classified as background context or likely noise rather than kept in active tracking.
-7. Relevant Domain Desks review the signals they receive and mark the desk-local routed-signal record `reviewed=true` when handled.
-8. Domain Desks may update their internal desk views from reviewed signals without producing a Desk Note for each reviewed signal.
-9. Lead desks update Theme Views for the themes they lead where those themes are materially affected.
-10. Domain Desks produce Desk Notes only when warranted by importance, relevance, or editorial need.
-11. Multiple Domain Desks may independently produce Desk Notes on the same development.
-12. Strategist synthesizes Desk Views, Theme Views, Desk Notes, and Viewpoint Signals into final system meaning, including theme implications or topic implications where appropriate.
-13. Editors Desk uses current Desk Theses, Desk Views, Theme Theses, Theme Views, Desk Notes, and relevant Research Briefs from Domain Desks, together with any designated trend-oriented canonical Signals received directly from Signal Desk, to create or update Topics in **candidate** status.
+2. Signals are normalized, deduplicated where appropriate, and classified against expert remit and relevance class.
+3. Signal Desk routes normalized Signals directly to the relevant Experts.
+4. Routed Experts become current consumers of those signals by virtue of routing.
+5. If a signal has no current Expert consumer, it is classified as background context or likely noise rather than kept in active tracking.
+6. Relevant Experts review the signals they receive and update expert feed, watchlist, ideas, beliefs, and calls as needed.
+7. Experts issue Calls when they need to propose, support, or challenge desk ideas or beliefs.
+8. Expert Calls and ordinary Contributions enter the relevant Analytical Desk feed.
+9. Analytical Desks deliberate over that input and update desk ideas, desk beliefs, desk debates, and current-state surfaces as needed.
+10. Analytical Desks publish Desk Notes only when warranted by importance, relevance, subscriber need, or editorial need.
+11. Multiple Analytical Desks may independently publish Desk Notes on the same development.
+12. Strategist synthesizes analytical desk output and Viewpoint Signals into final system meaning, including strategic or topic implications where appropriate.
+13. Editors Desk uses analytical desk current-state surfaces, Desk Notes, relevant Research Briefs, and any other relevant bounded analytical output to create or update Topics in **candidate** status.
 
 ### Worked Example
 
-- A company disclosure signal routes to the Mining & Strategic Materials Desk and the Macro, Rates, Liquidity & Capital Flows Desk
-- Each desk receives its own desk-local routed-signal record with `reviewed=false`
-- Mining reviews the signal, marks it reviewed, and adjusts its internal Desk View because the disclosure reinforces an existing supply constraint view
-- No Desk Note is produced yet because the signal is not important enough on its own
-- Later, two additional reviewed signals reinforce the same development
-- Mining then produces one Desk Note that reflects the combined current judgment
-- The prior reviewed signals informed the desk's understanding, but they did not each require their own separate Desk Note or explicit view-mutation record
+- A company disclosure signal routes to the relevant mining-focused, materials-focused, and market-focused experts
+- Those experts review the signal and update their own feed, watchlist, ideas, beliefs, and calls as needed
+- One expert issues a call into Materials Desk because the disclosure reinforces an existing supply-constraint claim
+- No Desk Note is produced yet because the development is not important enough on its own
+- Later, additional expert input reinforces the same desk-level claim
+- Materials Desk updates desk state and then produces one Desk Note that reflects the combined current judgment
+- The prior reviewed signals informed expert and desk understanding, but they did not each require their own separate Desk Note or explicit mutation record
 
 ### Research Workflow
 
-1. A valid Research Request is submitted by a Domain Desk.
-2. Domain Desk and Research Desk may each identify that a request is major because it is cross-domain in scope.
+1. A valid Research Request is submitted by an Analytical Desk.
+2. Analytical Desk and Research Desk may each identify that a request is major because it is cross-domain in scope.
 3. Research Desk determines whether the request is major due to excessive expected cost according to canonical cost rules.
 4. Major Research Requests are escalated for Strategist approval.
-5. If Domain Desk and Research Desk disagree about whether a request is cross-domain or excessive-cost, Strategist decides.
+5. If Analytical Desk and Research Desk disagree about whether a request is cross-domain or excessive-cost, Strategist decides.
 6. Research Desk determines whether the request can be satisfied in whole or in part by existing Research Briefs and produces any needed new Research Brief(s).
-7. The requesting Domain Desk receives the resulting Research Brief(s).
+7. The requesting Analytical Desk receives the resulting Research Brief(s).
 8. Research Briefs remain reusable for future requests.
 
 ### Signal Request Workflow
 
-1. A valid Signal Request is submitted by a Domain Desk.
+1. A valid Signal Request is submitted by an Analytical Desk.
 2. The request defines the relevant time range, filter criteria, and retrieval purpose.
 3. Signal Desk executes the bounded search over retained signals and related signal-side artifacts as needed.
-4. The requesting Domain Desk receives the resulting signal dump or bounded signal-search result.
-5. The requesting Domain Desk uses that result as signal-side input for current interpretation, further desk work, or a later Research Request if deeper work is needed.
+4. The requesting Analytical Desk receives the resulting signal dump or bounded signal-search result.
+5. The requesting Analytical Desk uses that result as signal-side input for current interpretation, further desk work, or a later Research Request if deeper work is needed.
 
 ### Editorial Workflow
 
-1. Domain Desks send current Desk Theses, Desk Views, Theme Theses, Theme Views, Desk Notes, and relevant Research Briefs to Editors Desk by default.
-2. Signal Desk may also route designated trend-oriented canonical Signals directly to Editors Desk for Topic generation and sequencing.
+1. Analytical Desks expose current-state surfaces and publish Desk Notes for subscribers including Editors Desk.
+2. Editors Desk inspects analytical current-state surfaces, subscribes to Desk Notes, and asks direct questions of Analytical Desks as needed.
 3. Editors Desk uses those inputs to create, own, and manage Topics, including backlog, slate, sequencing, and channel planning.
 4. Editors Desk may create one or more Editorial Assignments only from an approved Topic when that Topic should be executed for specific channels.
 5. Each Editorial Assignment is owned by the relevant channel editor.
 6. Creation of an Editorial Assignment begins channel-editor execution.
-7. Editors Desk routes the subset of relevant Desk Theses, Desk Views, Theme Theses, Theme Views, Desk Notes, and relevant Research Briefs needed for each current Assignment to the relevant channel editor.
-8. Channel editors consume that routed subset and work through the relevant Domain Desk for interpretation, clarification, and any needed research support.
-9. If the channel editor needs more research support during execution, the request goes to the relevant Domain Desk.
-10. The relevant Domain Desk determines whether existing knowledge is sufficient or whether new research is needed.
-11. If existing knowledge is sufficient, the Domain Desk produces an additional Desk Note or otherwise supports execution directly.
-12. If new research is needed, the relevant Domain Desk opens a Research Request.
+7. Editors Desk routes the subset of relevant current-state surfaces, Desk Notes, and Research Briefs needed for each current Assignment to the relevant channel editor.
+8. Channel editors consume that routed subset and work through the relevant Analytical Desk for interpretation, clarification, and any needed research support.
+9. If the channel editor needs more research support during execution, the request goes to the relevant Analytical Desk.
+10. The relevant Analytical Desk determines whether existing knowledge is sufficient or whether new research is needed.
+11. If existing knowledge is sufficient, the desk produces an additional Desk Note or otherwise supports execution directly.
+12. If new research is needed, the relevant Analytical Desk opens a Research Request.
 13. Research Desk fulfills the Research Request with one or more Research Briefs.
-14. The relevant Domain Desk uses the resulting Research Briefs, existing knowledge, and current signals to update current views and produce any additional Desk Notes needed for execution.
+14. The relevant Analytical Desk uses the resulting Research Briefs, existing knowledge, and current signals to update desk state and produce any additional Desk Notes needed for execution.
 15. Editors Desk may route refreshed analytical material to the channel editor when execution requirements materially change.
-16. The channel editor uses the current Desk Theses, Desk Views, Theme Theses, Theme Views, Desk Notes, and relevant Research Briefs to produce the channel-specific output.
+16. The channel editor uses the routed analytical desk state, Desk Notes, and relevant Research Briefs to produce the channel-specific output.
 17. Editors Desk moves the Editorial Assignment to **ready_for_review** when the draft is ready to enter publication review.
-18. The channel editor may ask the relevant Domain Desk to review a draft before it goes to publication approval.
-19. Strategist reviews the Publication Item for topical, thematic, and thesis alignment before final human approval.
+18. The channel editor may ask the relevant Analytical Desk to review a draft before it goes to publication approval.
+19. Strategist reviews the Publication Item for topical, strategic, and thesis alignment before final human approval.
 20. Human publication approval is coordinated by the Strategist and, once granted, Strategist moves the Editorial Assignment to **approved**.
 21. Channel editor distributes approved items externally and moves the Editorial Assignment to **published**.
 
@@ -931,100 +562,31 @@ For Viewpoint Signals specifically:
 ### Strategist
 
 - Primary orchestrator of the system
-- Acts as the multi-domain integrator across Domain Desks
-- Evaluates Desk Notes, themes, editorial priorities, and current context
+- Acts as the multi-desk integrator across Analytical Desks
+- Evaluates desk current state, Desk Notes, editorial priorities, and current context
 - Shares and discusses relevant developments with human
 - Generates Viewpoint Signals and injects them into the system
-- Owns monitoring policy, coverage mandate, priority tiers, escalation rules, standing directives, and theme policy
+- Owns monitoring policy, coverage mandate, priority tiers, escalation rules, standing directives, and any external strategic framing maintained outside this runtime specification
 - Coordinates final alignment and human publication approval
 - Maintains a current Strategist Feed History and Strategist Scratchpad as working memory for cross-domain synthesis, prioritization, and override decisions
+- Participates across Analytical Desk deliberation
+- Has one normal vote in desk voting and a veto over belief adoption
+- May stop debate, but may not unilaterally force belief adoption
 
-#### Domain Desks
+### Analytical Desks
 
-The Strategist works through the following permanent domain desks:
+The system currently uses the following permanent analytical desks:
 
-- Oil & Gas Desk
-- Mining & Strategic Materials Desk
-- Power Systems & Grid Desk
-- Geopolitics & State Power Desk
-- Defense Desk
-- Project & Capital Economics Desk
-- Macro, Rates, Liquidity & Capital Flows Desk
+- Energy Desk
+- Materials Desk
+- Infrastructure Desk
+- Manufacturing Desk
+- Logistics Desk
+- Conflict Desk
+- Influence Desk
+- Macro Desk
 
-Each Domain Desk maintains evolving internal desk views for its domain. These desk views are synthesized from routed signals, Viewpoint Signals, Research Briefs, prior desk understanding, and other relevant inputs. They change over time as new evidence arrives, can become stale, and may be revised, partially overturned, or strengthened. Desk Notes express selected current judgments from these desk views, but do not fully represent the full scope of the desk's internal view.
-
-Each Domain Desk also maintains a Desk Thesis for its domain. The Desk Thesis is the desk's more durable conviction layer and evolves more slowly than the Desk View.
-
-Lead desks also maintain Theme Views for the themes they lead. Theme Views are cross-domain where needed, but remain anchored in and consistent with the lead desk's desk view. They may incorporate relevant collaborator-desk views and remain subject to Strategist override or reprioritization when needed.
-
-Lead desks also maintain Theme Theses for the themes they lead. A Theme Thesis is the more durable thesis layer for that theme and evolves more slowly than the Theme View.
-
-#### Oil & Gas Desk
-
-- **Standing coverage mandates**
-  - crude oil supply, spare capacity, and producer behavior
-  - gas and LNG supply, transport, and market structure
-  - refining, product balances, and hydrocarbon energy security
-- **Lead themes**
-  - Oil, Gas, and Energy Security
-
-#### Mining & Strategic Materials Desk
-
-- **Standing coverage mandates**
-  - upstream strategic-material supply chains
-  - processing, refining, and conversion bottlenecks
-  - mine and project development realism
-  - strategic material availability and control
-- **Lead themes**
-  - Copper Supply and the Energy Buildout
-  - Rare Earths and Magnet-Supply Concentration
-
-#### Power Systems & Grid Desk
-
-- **Standing coverage mandates**
-  - power demand growth and load migration
-  - transmission, interconnection, and equipment bottlenecks
-  - generation mix, reserve margins, and grid reliability
-- **Lead themes**
-  - AI Demand, Power Constraints, and Grid Stress
-  - Energy Abundance and the Future of Power Generation
-
-#### Geopolitics & State Power Desk
-
-- **Standing coverage mandates**
-  - sanctions, export controls, and state leverage
-  - industrial policy, localization, and strategic control
-  - conflict, chokepoints, and operating-environment stress
-- **Lead themes**
-  - Strategic Supply Chains and Economic Statecraft
-  - Geopolitical Crisis, Conflict, and System Disruption
-
-#### Defense Desk
-
-- **Standing coverage mandates**
-  - defense-industrial demand for strategic materials
-  - procurement, stockpiling, and replenishment cycles
-  - surge production, mobilization, and secure defense supply chains
-- **Lead themes**
-  - Defense Demand, Strategic Stockpiling, and the Modern Kill Chain
-
-#### Project & Capital Economics Desk
-
-- **Standing coverage mandates**
-  - project finance, capital stack, and dilution
-  - capex inflation, construction risk, and commissioning
-  - sanctioning behavior, partner support, and project realism
-- **Lead themes**
-  - Project and Capital Economics
-
-#### Macro, Rates, Liquidity & Capital Flows Desk
-
-- **Standing coverage mandates**
-  - monetary regime transition and dollar-system stress
-  - rates, liquidity, credit, and financing windows
-  - capital availability and capital rotation for physical-economy assets
-- **Lead themes**
-  - Monetary Order Transition
+Current expert roster, desk memberships, and other first-pass implementation-shaping roster details are maintained in implementation docs rather than in this specification.
 
 ### Signal Desk
 
@@ -1035,8 +597,8 @@ Lead desks also maintain Theme Theses for the themes they lead. A Theme Thesis i
 - Executes monitoring within Strategist-directed scope, watchlists, priorities, and standing directives
 - Can make temporary reactive monitoring expansions within approved rules when new developments warrant immediate attention
 - Maintains structured watch coverage across primary-source, market, narrative, and catalyst feeds
-- Collects external signals and routes normalized Signals to the relevant Domain Desks for assessment
-- Fulfills Domain-Desk-sponsored Signal Requests for bounded retrieval over retained signals
+- Collects external signals and routes normalized Signals to the relevant Experts for assessment
+- Fulfills Analytical-Desk-sponsored Signal Requests for bounded retrieval over retained signals
 
 #### Report Watch
 
@@ -1091,12 +653,12 @@ Lead desks also maintain Theme Theses for the themes they lead. A Theme Thesis i
 - Peer desk controlled by the Strategist
 - Coordinates specialized research agents that perform deep research
 - Owns research execution, evidence gathering, extraction, organization, and support-material production within approved scope
-- Operates as a back-office support function for the Strategist and Domain Desks
-- Executes Domain-Desk-sponsored Research Requests
+- Operates as a back-office support function for the Strategist and Analytical Desks
+- Executes Analytical-Desk-sponsored Research Requests
 - Determines whether a Research Request can be satisfied by existing Research Briefs, a mix of existing and new work, or entirely new Research Briefs
 - Produces Research Briefs and reusable support materials rather than final interpretation or final published content
 - Maintains a reusable library of Research Briefs so later Topics and Research Requests can be fulfilled more efficiently
-- Does not own final domain interpretation, theme revisions, or cross-domain synthesis
+- Does not own final desk interpretation or cross-domain synthesis
 
 #### Research Functions
 
@@ -1113,10 +675,9 @@ Lead desks also maintain Theme Theses for the themes they lead. A Theme Thesis i
 - Coordinates publication editors across channels
 - Owns editorial operations across approved coverage areas, including candidate-topic generation, backlog, slate, sequencing, and reuse planning
 - Owns Topics across their full lifecycle
-- Consumes Desk Theses, Desk Views, Theme Theses, Theme Views, Desk Notes, and relevant Research Briefs from Domain Desks and turns promising developments into candidate Topics for publication editors
-- May also consume designated trend-oriented canonical Signals from Signal Desk for Topic generation and sequencing
-- Maintains a current Theme List, Editors Feed, and Editors Scratchpad as working memory for Topic generation and sequencing
-- Coordinates how Desk Theses, Desk Views, Theme Theses, Theme Views, Desk Notes, and relevant Research Briefs are used across channels
+- Inspects analytical desk current-state surfaces, subscribes to Desk Notes, asks direct questions of Analytical Desks, and turns promising developments into candidate Topics for publication editors
+- Maintains a current Editorial Agenda, Editors Feed, and Editors Scratchpad as working memory for Topic generation and sequencing
+- Coordinates how current-state surfaces, Desk Notes, and relevant Research Briefs are used across channels
 - Coordinates with the Strategist for topic approval, editorial alignment, and publication readiness
 
 #### Editorial Functions
@@ -1131,19 +692,19 @@ Lead desks also maintain Theme Theses for the themes they lead. A Theme Thesis i
 
 - Manages the X content operation
 - Owns X Editorial Assignments
-- Uses Desk Theses, Desk Views, Theme Theses, Theme Views, Desk Notes, and relevant Research Briefs from Domain Desks to write posts
+- Uses routed current-state surfaces, Desk Notes, and relevant Research Briefs from Analytical Desks to write posts
 
 #### SubstackEditor
 
 - Manages the content for Substack
 - Owns Substack Editorial Assignments
-- Uses Desk Theses, Desk Views, Theme Theses, Theme Views, Desk Notes, and relevant Research Briefs from Domain Desks to produce digest pieces and long-form explainers
+- Uses routed current-state surfaces, Desk Notes, and relevant Research Briefs from Analytical Desks to produce digest pieces and long-form explainers
 
 #### YouTubeEditor
 
 - Manages YouTube content focused on explaining complex topics
 - Owns YouTube Editorial Assignments
-- Uses Desk Theses, Desk Views, Theme Theses, Theme Views, Desk Notes, and relevant Research Briefs from Domain Desks to develop video concepts, outlines, and scripts
+- Uses routed current-state surfaces, Desk Notes, and relevant Research Briefs from Analytical Desks to develop video concepts, outlines, and scripts
 
 ### Assistant
 
@@ -1155,4 +716,4 @@ Lead desks also maintain Theme Theses for the themes they lead. A Theme Thesis i
 - May enforce only the explicit workflow and state rules defined by this specification
 - May block invalid transitions, missing required approvals, or missing required inputs
 - May not make discretionary workflow judgments
-- Does not own domain interpretation, research conclusions, thematic judgment, editorial direction, or final approval
+- Does not own analytical interpretation, research conclusions, strategic judgment, editorial direction, or final approval

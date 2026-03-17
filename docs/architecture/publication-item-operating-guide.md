@@ -30,7 +30,7 @@ Drafts and Publication Items are channel-specific editorial output objects.
 
 These objects are not owned by:
 
-- Domain Desks
+- Analytical Desks
 - Research Desk
 - Signal Desk
 
@@ -40,14 +40,11 @@ Those desks may support execution, but they do not own the output objects themse
 
 Drafts and Publication Items may be built from the routed assignment-relevant analytical subset, including:
 
-- Desk Thesis
-- Desk View
-- Theme Thesis
-- Theme View
-- Desk Note
+- current-state surfaces
+- desk notes
 - relevant Research Brief
 
-They may also incorporate attributable source material where publication standards allow it.
+They may also incorporate attributable source material so long as attribution and provenance requirements are preserved.
 
 ## Attribution Readiness
 
