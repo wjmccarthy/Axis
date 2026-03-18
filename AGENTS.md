@@ -9,9 +9,9 @@ This repo is part of a long-lived system, not a demo. Optimize for correctness, 
 - Daily workflow may run under a non-admin account
 - Source control: GitHub
 - Secrets: 1Password plus gitignored local env files
-- Prefer local-first operation unless this repo explicitly targets hosted infrastructure
+- Runtime host: openclaw
+- prefer openclaw patterns, built-in functionality, skills, and tools to build our own
 
-Do not assume Linux-first paths, systemd, or cloud-only workflows unless this repo explicitly uses them.
 
 ## Canonical files
 
@@ -21,6 +21,7 @@ Use these if they exist and are relevant to the task:
 - `BUILD_LOG.md`
 - relevant runbooks under `docs/` or `docs/runbooks/`
 - relevant architecture docs under `docs/architecture/`
+- relevant implementation docs under `docs/implementation/`
 
 Rules:
 - `ROADMAP.md` is for objectives, sequencing, dependencies, and proof criteria.
