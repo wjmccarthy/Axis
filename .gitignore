@@ -1,1 +1,8 @@
 .DS_Store
+.venv/
+__pycache__/
+.pytest_cache/
+*.egg-info/
+agent-state/system/*.db
+agent-state/system/*.sqlite
+agent-state/system/*.sqlite3

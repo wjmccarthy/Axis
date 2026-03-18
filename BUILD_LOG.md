@@ -1,26 +1,175 @@
 # Build Log
 
+## Logging Instructions
+
+- Add a new log entry at the top of this file for every codebase check-in or substantive repo change.
+- Start each entry with both the calendar date and a precise local timestamp using this format: `## YYYY-MM-DD HH:MM TZ`.
+- Do not merge multiple check-ins into one running daily note. Separate entries are required so the progression of changes through the day is visible.
+- Keep each entry compact and use the existing sections:
+  - what was attempted
+  - what changed
+  - what was verified
+  - what failed or remains unresolved
+  - exact next rational step
+- Newest entry first. Preserve older entries below it in reverse chronological order.
+
 ## 2026-03-18
 
 - what was attempted
   - aligned roadmap, spec, architecture, and implementation docs around the current expert-and-desk model
   - moved implementation-shaping roster and theme archive into `docs/implementation/`
   - cleaned workspace metadata and added a project `.gitignore`
+  - created the first OpenClaw-native agent workspace definitions for the initial implementation slice
+  - scoped that first slice to `Signal Desk`, the eight Analytical Desks, and the first-wave watcher agents
+  - started the first real Python implementation slice for the shared coordination layer instead of building temporary storage/routing scaffolding
 
 - what changed
   - canonical spec now references the current permanent desk set and points roster detail to implementation docs
   - roadmap and implementation reading order now explicitly include `docs/implementation/`
   - current first-pass desk and expert roster lives in `docs/implementation/desk-and-expert-roster.md`
   - archived theme catalog lives in `docs/implementation/THEMES_ARCHIVE.md`
+  - added `openclaw/agents/<agent-id>/` workspaces for:
+    - `signal-desk`
+    - `energy-desk`
+    - `materials-desk`
+    - `infrastructure-desk`
+    - `manufacturing-desk`
+    - `logistics-desk`
+    - `conflict-desk`
+    - `influence-desk`
+    - `macro-desk`
+    - `report-watch`
+    - `market-data-watch`
+    - `news-watch`
+    - `economic-data-watch`
+    - `policy-regulatory-watch`
+    - `company-project-watch`
+    - `physical-flow-watch`
+    - `calendar-catalyst-watch`
+    - `x-watch`
+    - `youtube-watch`
+  - each new agent workspace now includes first-pass `AGENTS.md`, `SOUL.md`, `IDENTITY.md`, `USER.md`, and `TOOLS.md`
+  - the first-pass files encode role boundaries, handoff rules, explanation posture, and OpenClaw-native workspace conventions without locking in detailed watchlists or runtime plumbing
+  - added first-wave expert workspaces under `openclaw/agents/<agent-id>/` for:
+    - `oil-gas-expert`
+    - `power-expert`
+    - `mining-expert`
+    - `metals-expert`
+    - `materials-expert`
+    - `ai-expert`
+    - `chemicals-expert`
+    - `agriculture-expert`
+    - `defense-expert`
+    - `shipping-expert`
+    - `central-banks-expert`
+    - `markets-expert`
+    - `geopolitics-expert`
+    - `us-politics-expert`
+    - `narratives-expert`
+    - `influence-operations-expert`
+    - `institutional-trust-expert`
+    - `conspiracy-theory-expert`
+    - `manufacturing-expert`
+    - `trade-expert`
+    - `construction-expert`
+    - `labor-expert`
+    - `trends-expert`
+  - each expert workspace now includes first-pass `AGENTS.md`, `SOUL.md`, `IDENTITY.md`, `USER.md`, and `TOOLS.md`
+  - expert files encode remit, desk memberships, expert-surface responsibilities, and the boundary between expert-local state and desk-owned synthesis
+  - reviewed `docs/implementation/desk-and-expert-roster.md` against the first-pass agent files and strengthened the `AGENTS.md` definitions where the roster added meaningful context
+  - expert `AGENTS.md` files now state explicitly that experts are system-level agents rather than desk-owned agents and that they may apply the same expert state differently across desks through `Calls` and `Contributions`
+  - `Conflict Desk` and `Macro Desk` now explicitly carry the roster's cross-system desk framing
+  - `Trends` now explicitly carries the roster note that it primarily reports to `Editors Desk`
+  - removed per-agent `SOUL.md` and `USER.md` files across the current agent set
+  - the default per-agent workspace shape is now reduced to `AGENTS.md`, `IDENTITY.md`, and `TOOLS.md`
+  - per-agent `SOUL.md` is now treated as opt-in and should be added only where an agent needs a real behavioral deviation from the default
+  - split the old single `openclaw/agents/` tree into two repo-local roots:
+    - `agent-definitions/` for canonical reviewed agent workspace-definition files
+    - `agent-state/` for writable per-agent state only
+  - moved all current agent definition files to `agent-definitions/agents/<agent-id>/`
+  - created matching writable state roots at `agent-state/agents/<agent-id>/` with:
+    - `memory/`
+    - `state/`
+    - `state/scratchpad/`
+  - added short README files at `agent-definitions/README.md` and `agent-state/README.md` to make the split explicit
+  - removed the bootstrap files from `agent-state/` after recognizing that writable `AGENTS.md` files would let agents change behavior without review
+  - added the first-pass shared coordination schema at `agent-definitions/system/schema/001_initial.sql`
+  - the schema is intentionally narrow and text-first, covering:
+    - `agents`
+    - `documents`
+    - `signals`
+    - `signal_routes`
+    - `messages`
+    - `message_deliveries`
+    - `requests`
+    - `published_surfaces`
+    - `links`
+  - recipient-specific inbox/read/processed state now lives on delivery/route records rather than on the canonical signal or message objects
+  - added a new Python package skeleton under `src/axis/` plus `pyproject.toml`
+  - implemented first-pass domain models for:
+    - agents
+    - documents
+    - signals
+    - signal routes
+    - messages
+    - message deliveries
+    - requests
+    - published surfaces
+    - links
+  - implemented first-pass SQLite support for:
+    - connection/bootstrap
+    - schema application
+    - transaction handling
+  - implemented first-pass repositories and services for:
+    - signals and per-recipient signal inbox state
+    - messages and per-recipient message inbox state
+    - requests and owner-side request queues
+  - created the first live coordination database at `agent-state/system/axis.db` from the reviewed schema
+  - added a first-pass `pytest` suite under `tests/` covering:
+    - schema bootstrap
+    - signal routing and recipient-specific route state
+    - message delivery inbox behavior
+    - request ownership queues
+  - added a GitHub Actions workflow at `.github/workflows/python-tests.yml` to run the Python test suite on push and pull request
+  - updated `pyproject.toml` with a `test` extra and pytest configuration
 
 - what was verified
   - spec, roadmap, and implementation docs were reviewed for authority conflicts and stale desk references
   - stale root references to `AGENT_ROSTER` and `THEMES.md` were removed
   - `.DS_Store` noise is now ignored
+  - the repo's OpenClaw guidance and official OpenClaw workspace docs were checked to keep file roles aligned with standard workspace bootstrap usage
+  - the `openclaw/agents/` tree was verified to contain the expected first-pass files for each scoped agent
+  - the `openclaw/agents/` tree now contains 42 agent workspaces and 210 first-pass workspace files across desks, watchers, and experts
+  - the enhanced expert and desk definitions were checked back against the roster doc so the new context strengthens the files without introducing a parallel ontology
+  - after removing per-agent `SOUL.md` and `USER.md`, the `openclaw/agents/` tree now contains 126 workspace files
+  - spot checks on `signal-desk` and `markets-expert` confirmed the reduced per-agent file set is now `AGENTS.md`, `IDENTITY.md`, and `TOOLS.md`
+  - spot checks on `agent-definitions/agents/markets-expert/` and `agent-state/agents/markets-expert/` confirmed the split now matches the intended reviewed-definition versus writable-state separation
+  - spot checks confirmed each state workspace now includes `memory/`, `state/`, and `state/scratchpad/`
+  - the new schema file was placed under the trusted definitions tree rather than the writable state tree
+  - `python3 -m compileall src` completed successfully
+  - a smoke test created a fresh SQLite database from `agent-definitions/system/schema/001_initial.sql`, inserted agents, created a signal plus route, sent a direct message plus delivery, opened a request, and queried the resulting inboxes/queue successfully
+  - the smoke test confirmed:
+    - signal inbox view for recipient experts
+    - message inbox view for recipient desks
+    - owner-side open-request queue view
+  - created a local virtualenv with `python3 -m venv .venv`
+  - installed the package and test dependencies with `./.venv/bin/python -m pip install -e '.[test]'`
+  - ran `./.venv/bin/python -m pytest`
+  - the current suite passes locally: `6 passed`
 
 - what failed or remains unresolved
   - expert remits, prompts, watchlists, and runtime tuning remain implementation work
   - several phase-2 design ideas were discussed but intentionally deferred
+  - these agent definitions are intentionally first-pass only; detailed operating prompts, watch coverage, concrete source lists, and any per-agent memory/bootstrap rituals still need operator input and runtime shaping
+  - strategist, editors, research, and assistant workspaces have not been defined yet in this slice
+  - the state workspaces currently contain only bootstrap pointer files and empty writable directories; the concrete state-file conventions still need to be formalized
+  - OpenClaw runtime configuration has not yet been updated to point actual agents at `agent-state/agents/<agent-id>/`
+  - the schema has not yet been validated against a live SQLite instance or seeded with test data
+  - queue state conventions, message type vocabulary, and request type vocabulary still need explicit project-level agreement
+  - repositories/services currently cover only the narrow coordination slice; documents, surfaces, links, and agent registry access still need repository/service implementations
+  - no CLI entrypoints exist yet
+  - the live `axis.db` currently contains only smoke-test data and is not yet wired into a running OpenClaw workflow
+  - CI currently covers only the coordination-core tests; there are no integration tests yet for document ingestion or end-to-end watcher flows
 
 - exact next rational step
-  - begin OpenClaw implementation from MVP 1 through MVP 4 using the current spec, roadmap, and implementation roster
+  - add repositories/services for documents and published surfaces, then implement one real narrow vertical slice from ingested document to created signal to routed expert inbox with tests added alongside that slice
